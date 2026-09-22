@@ -34,6 +34,8 @@
 > ylabel("y")
 > grid on
 > ```
+>
+> ![y = x^2](img/sol0202_3.png)
 
 ## [2.3 변수 이름 규칙과 데이터 타입](2.3-variables-and-types.md)
 

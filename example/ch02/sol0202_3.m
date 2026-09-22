@@ -8,3 +8,5 @@ title("y = x^2")
 xlabel("x")
 ylabel("y")
 grid on
+
+exportgraphics(gcf, "../../textbook/ch02/img/sol0202_3.png")
