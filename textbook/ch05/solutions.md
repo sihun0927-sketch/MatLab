@@ -1,5 +1,7 @@
 # Chapter 5 연습문제 해답 (5.1 ~ 5.3.2)
 
+> **[보강]** 이 문서 전체가 슬라이드 밖 내용이다. 문제와 해답 모두 시험 대비용으로 새로 만들었으므로, 원본 슬라이드와 대조할 때는 이 파일을 제외하면 된다.
+
 각 해답 코드는 `example/ch05/solXXYY_N.m`에 있다. 번호 규칙은 `sol` + 장(05) + 절 + `_` + 문제 번호다.
 
 | 문제 | 해답 코드 |
@@ -72,6 +74,17 @@ plot(x, Y)
 - 각 선은 행 수만큼 점을 갖는다 → **점 2개씩**
 - `x`를 주지 않았으므로 x축은 행 인덱스 1, 2
 
+```matlab
+A = [1 2 3; 4 5 6];              % 2 x 3
+plot(A, "-o")
+legend("1열: [1;4]", "2열: [2;5]", "3열: [3;6]", Location="northwest")
+
+fprintf("선 %d개, 각 선의 점 %d개\n", size(A, 2), size(A, 1));
+% 선 3개, 각 선의 점 2개
+```
+
+→ [`sol0501_3.m`](../../example/ch05/sol0501_3.m)
+
 ![5.1.1-3](img/sol0501_3.png)
 
 ---
@@ -108,6 +121,14 @@ hold off
 | `"b"` | 파란 **실선**, 마커 없음 (선 문자를 안 썼으므로 기본 실선) |
 | `"bo"` | 파란 **원 마커만**, 선 없음 |
 | `"o"` | 기본색 **원 마커만**, 선 없음 |
+
+```matlab
+plot(x, y, "b")      % 파란 실선
+plot(x, y, "bo")     % 파란 원 마커만
+plot(x, y, "o")      % 기본색 원 마커만
+```
+
+→ [`sol0501_6.m`](../../example/ch05/sol0501_6.m)
 
 ![5.1.2-3](img/sol0501_6.png)
 
@@ -161,6 +182,13 @@ text(theta(idx), Rmax, sprintf("  \\leftarrow 최대 %.0f m at \\theta = %.3f ra
 
 ### 5.1.3-3 `A_max` vs `A_{max}`
 
+```matlab
+plot(x, sin(x))
+title("A_max 와 A_{max}")
+```
+
+→ [`sol0501_9.m`](../../example/ch05/sol0501_9.m)
+
 ![5.1.3-3](img/sol0501_9.png)
 
 TeX에서 `_`는 **바로 다음 글자 하나**만 아래 첨자로 만든다.
@@ -192,6 +220,26 @@ title(t, "삼각함수 네 가지")
 `tan(x)`는 x = π/2, 3π/2에서 발산한다. `ylim([-5 5])`로 자르지 않으면 y축이 ±10¹⁵까지 늘어나 나머지가 전부 평평한 선으로 보인다.
 
 ### 5.2-2 flow의 재배치
+
+```matlab
+% 그림 3개
+t3 = tiledlayout("flow");
+nexttile, plot(x, sin(x)), title("sin(x)"), grid on
+nexttile, plot(x, cos(x)), title("cos(x)"), grid on
+nexttile, plot(x, tan(x)), ylim([-5 5]), title("tan(x)"), grid on
+title(t3, "flow, 그림 3개")
+
+% 그림 4개 — 위에 한 줄만 더 붙인다
+figure
+t4 = tiledlayout("flow");
+nexttile, plot(x, sin(x)), title("sin(x)"), grid on
+nexttile, plot(x, cos(x)), title("cos(x)"), grid on
+nexttile, plot(x, tan(x)), ylim([-5 5]), title("tan(x)"), grid on
+nexttile, plot(x, sin(x).*cos(x)), title("sin(x)cos(x)"), grid on
+title(t4, "flow, 그림 4개")
+```
+
+→ [`sol0502_2.m`](../../example/ch05/sol0502_2.m)
 
 ![5.2-2, 그림 3개](img/sol0502_2a.png)
 ![5.2-2, 그림 4개](img/sol0502_2b.png)
@@ -237,6 +285,17 @@ polarplot(theta, r, LineWidth=1.2)
 
 ### 5.3.1-2 장미 곡선의 잎 개수
 
+```matlab
+theta = 0:pi/720:2*pi;
+
+t = tiledlayout(1, 2);
+nexttile, polarplot(theta, cos(2*theta), LineWidth=1.2), title("r = cos(2\theta)")
+nexttile, polarplot(theta, cos(5*theta), LineWidth=1.2), title("r = cos(5\theta)")
+title(t, "n 이 짝수면 2n 장, 홀수면 n 장")
+```
+
+→ [`sol0503_2.m`](../../example/ch05/sol0503_2.m)
+
 ![5.3.1-2](img/sol0503_2.png)
 
 - `r = cos(2θ)` → **잎 4장** (n = 2, 짝수 → 2n)
@@ -250,6 +309,18 @@ polarplot(theta, r, LineWidth=1.2)
 
 ### 5.3.2-1 멱함수
 
+```matlab
+x = logspace(-1, 3, 100);        % 0.1 ~ 1000
+y = 3*x.^1.5;
+
+t = tiledlayout(1, 2);
+nexttile, plot(x, y),   title("plot - 선형/선형"),  xlabel("x"), ylabel("y"), grid on
+nexttile, loglog(x, y), title("loglog - 로그/로그"), xlabel("x"), ylabel("y"), grid on
+title(t, "y = 3x^{1.5}")
+```
+
+→ [`sol0503_3.m`](../../example/ch05/sol0503_3.m)
+
 ![5.3.2-1](img/sol0503_3.png)
 
 선형 그래프에서는 x = 0.1 ~ 10 구간이 원점 근처에 뭉개져 전혀 보이지 않는다. 네 자릿수(0.1 ~ 1000)에 걸친 데이터이므로 **loglog가 읽기 쉽다**.
@@ -262,6 +333,18 @@ n = (log10(y(end)) - log10(y(1))) / (log10(x(end)) - log10(x(1)));
 ```
 
 ### 5.3.2-2 지수함수
+
+```matlab
+x = 0:0.5:10;
+y = 2*exp(0.8*x);
+
+t = tiledlayout(1, 2);
+nexttile, plot(x, y),     title("plot - 선형/선형"),   xlabel("x"), ylabel("y"), grid on
+nexttile, semilogy(x, y), title("semilogy - 선형/로그"), xlabel("x"), ylabel("y"), grid on
+title(t, "y = 2e^{0.8x}")
+```
+
+→ [`sol0503_4.m`](../../example/ch05/sol0503_4.m)
 
 ![5.3.2-2](img/sol0503_4.png)
 

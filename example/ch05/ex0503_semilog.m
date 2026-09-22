@@ -27,8 +27,8 @@ loglog(x, y)                     % 두 축 모두 로그
 title("Polynomial - log/log")
 xlabel("x-axis"), ylabel("y-axis"), grid
 
-m = ["A Polynomial Plotted"; "Using Multiple Graphing Strategies"];
-title(t, m)
+layoutTitle = ["A Polynomial Plotted"; "Using Multiple Graphing Strategies"];
+title(t, layoutTitle)
 
 theme(gcf, "light")              % R2026a 기본 테마는 dark 라 밝게 바꿔 저장한다
 exportgraphics(gcf, "../../textbook/ch05/img/ex0503_semilog.png")

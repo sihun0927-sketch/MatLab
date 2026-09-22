@@ -7,8 +7,8 @@
 
 | | 내용 | 문서 |
 |---|---|---|
-| 5.1 | 2차원 그래프를 그리고 이름을 붙인다 | [5.1.1](5.1.1-basic-plotting.md) · [5.1.2](5.1.2-line-color-mark.md) · [5.1.3](5.1.3-axis-legend-text.md) |
-| 5.2 | 그래프의 겉모습을 조절한다 | [5.1.2](5.1.2-line-color-mark.md) · [5.1.3](5.1.3-axis-legend-text.md) |
+| 5.1 | 2차원 그래프를 그리고 이름을 붙인다 | [5.1](5.1-2d-plots.md) |
+| 5.2 | 그래프의 겉모습을 조절한다 | [5.1](5.1-2d-plots.md) (5.1.2, 5.1.3) |
 | 5.3 | 창을 tiled chart layout으로 나눠 여러 그래프를 배치한다 | [5.2](5.2-tiled-layout.md) |
 | 5.4 | 3차원 그래프를 그린다 | Chapter 05_2 |
 | 5.5 | 대화형 plotting 도구를 쓴다 | Chapter 05_2 |
@@ -19,15 +19,12 @@
 
 | 절 | 문서 | 다루는 것 |
 |---|---|---|
-| 5.1.1 | [기본 plotting](5.1.1-basic-plotting.md) | `plot`, `area`, figure 창 관리, `hold on`, 다중 선, column dominant |
-| 5.1.2 | [선, 색, 마커 스타일](5.1.2-line-color-mark.md) | LineSpec 문자열, `Name=Value` 속성 |
-| 5.1.3 | [축 크기 조절과 주석](5.1.3-axis-legend-text.md) | `axis`, `legend`, `text`, TeX 문법, Example 5.2 탄도 |
+| 5.1 | [2차원 그래프](5.1-2d-plots.md) | 5.1.1 `plot`·`area`·figure 창·`hold on`·다중 선·column dominant / 5.1.2 LineSpec·`Name=Value` / 5.1.3 `axis`·`legend`·`text`·TeX·Example 5.2 탄도 |
 | 5.2 | [Tiled Chart Layouts](5.2-tiled-layout.md) | `tiledlayout`, `nexttile`, `"flow"`, 칸 합치기 |
-| 5.3.1 | [극좌표 그래프](5.3.1-polar-plots.md) | `polarplot` |
-| 5.3.2 | [로그 그래프](5.3.2-log-plots.md) | `semilogx`, `semilogy`, `loglog` |
+| 5.3 | [다른 종류의 2차원 그래프](5.3-other-2d-plots.md) | 5.3.1 `polarplot` / 5.3.2 `semilogx`·`semilogy`·`loglog` |
 | — | [연습문제 해답](solutions.md) | 위 여섯 절의 문제 16개 |
 
-5.3.3 이후(막대그래프, 원그래프, 히스토그램, 두 개의 y축, 함수 그래프)와 5.4~5.5(3차원 그래프, 대화형 도구)는 `Chapter 05_2.pdf` 쪽 문서가 다룬다.
+`5.3-other-2d-plots.md` 는 Chapter 05_2 이슈와 함께 쓰는 파일이다. 5.3.3 이후(막대그래프, 원그래프, 히스토그램, 두 개의 y축, 함수 그래프)와 5.4~5.5(3차원 그래프, 대화형 도구)는 `Chapter 05_2.pdf` 쪽 문서가 다룬다.
 
 ## 함수 색인
 

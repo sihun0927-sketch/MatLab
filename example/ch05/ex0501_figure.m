@@ -18,7 +18,7 @@ exportgraphics(figure(1), "../../textbook/ch05/img/ex0501_figure1.png")
 exportgraphics(figure(2), "../../textbook/ch05/img/ex0501_figure2.png")
 
 clf                              % 활성 창(Figure 2)만 비운다. Figure 1 은 그대로
-disp("clf 후 Figure 2 의 자식 개수: " + numel(get(figure(2), "Children")))
-disp("clf 후 Figure 1 의 자식 개수: " + numel(get(figure(1), "Children")))
+disp("clf 후 Figure 2 의 자식 개수: " + numel(figure(2).Children))
+disp("clf 후 Figure 1 의 자식 개수: " + numel(figure(1).Children))
 
 close all                        % 열린 figure 창을 모두 닫는다
