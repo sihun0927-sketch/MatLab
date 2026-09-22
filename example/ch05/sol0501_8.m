@@ -5,9 +5,9 @@ g = 9.81;                        % m/s^2
 v = [50 100 150];                % m/s
 theta = 0:0.01:pi/2;             % rad
 
-R1 = v(1)^2 / g * sin(2*theta);
-R2 = v(2)^2 / g * sin(2*theta);
-R3 = v(3)^2 / g * sin(2*theta);
+R1 = v(1)^2 ./ g .* sin(2*theta);   % 본문 함정대로 처음부터 원소별 연산자
+R2 = v(2)^2 ./ g .* sin(2*theta);
+R3 = v(3)^2 ./ g .* sin(2*theta);
 
 plot(theta, R1, theta, R2, theta, R3, LineWidth=1.2)
 title("초기속도에 따른 사거리")

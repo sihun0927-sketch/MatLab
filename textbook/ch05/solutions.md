@@ -141,18 +141,21 @@ plot(x, y, "o")      % 기본색 원 마커만
 ### 5.1.3-1 감쇠 진동
 
 ```matlab
+lambda = 0.3;                    % 감쇠상수
 x = 0:0.1:10;
-y = exp(-0.3*x).*sin(3*x);
+y = exp(-lambda*x).*sin(3*x);
 
 plot(x, y, LineWidth=1.5)
 axis([0 10 -1 1])
-title("감쇠 진동  y = e^{-0.3x} sin(3\omega x)")
+title("감쇠 진동  y = e^{-\lambda x} sin(3x),  \lambda = 0.3")
 xlabel("x"), ylabel("진폭 y"), grid on
 ```
 
 ![5.1.3-1](img/sol0501_7.png)
 
-`exp(-0.3*x).*sin(3*x)`의 `.*`가 핵심이다. 두 벡터의 원소별 곱이다. 제목의 `e^{-0.3x}`는 중괄호로 지수 전체를 묶었고, `\omega`는 그리스 문자 ω다.
+`exp(-lambda*x).*sin(3*x)`의 `.*`가 핵심이다. 두 벡터의 원소별 곱이다. 제목의 `e^{-\lambda x}`는 중괄호로 지수 전체를 묶었고, `\lambda`는 그리스 문자 λ다.
+
+> ⚠️ **함정** — 제목에 그리스 문자를 넣으라는 요구를 채우려고 **그리는 함수에 없는 기호를 끼워 넣으면 안 된다.** 예를 들어 `sin(3x)`를 그려 놓고 제목에 `sin(3\omega x)`라 적으면, 그래프와 설명이 서로 다른 함수를 가리키게 된다. 여기서는 감쇠상수에 λ라는 이름을 실제로 붙여 해결했다.
 
 ### 5.1.3-2 초기속도에 따른 사거리
 
@@ -161,9 +164,9 @@ g = 9.81;
 v = [50 100 150];
 theta = 0:0.01:pi/2;
 
-R1 = v(1)^2 / g * sin(2*theta);
-R2 = v(2)^2 / g * sin(2*theta);
-R3 = v(3)^2 / g * sin(2*theta);
+R1 = v(1)^2 ./ g .* sin(2*theta);
+R2 = v(2)^2 ./ g .* sin(2*theta);
+R3 = v(3)^2 ./ g .* sin(2*theta);
 
 plot(theta, R1, theta, R2, theta, R3, LineWidth=1.2)
 legend("v_1 = 50 m/s", "v_2 = 100 m/s", "v_3 = 150 m/s", Location="south")
