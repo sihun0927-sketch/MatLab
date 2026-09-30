@@ -1,8 +1,8 @@
-function varargout = minmax(v)
-% MINMAX  요청된 출력 개수만큼 최솟값, 최댓값, 범위를 순서대로 반환한다.
-%   m           = MINMAX(v)  → 최솟값
-%   [m, M]      = MINMAX(v)  → 최솟값, 최댓값
-%   [m, M, rng] = MINMAX(v)  → 최솟값, 최댓값, 범위(max-min)
+function varargout = myminmax(v)
+% MYMINMAX  요청된 출력 개수만큼 최솟값, 최댓값, 범위를 순서대로 반환한다.
+%   m           = MYMINMAX(v)  → 최솟값
+%   [m, M]      = MYMINMAX(v)  → 최솟값, 최댓값
+%   [m, M, rng] = MYMINMAX(v)  → 최솟값, 최댓값, 범위(max-min)
 %
 %   varargout 은 출력들을 담는 cell array 다.
 

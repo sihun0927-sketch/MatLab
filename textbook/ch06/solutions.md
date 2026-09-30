@@ -2,6 +2,8 @@
 
 각 해답 코드는 `example/ch06/solXXYY_N.m`에 있다.
 
+> **[보강]** 이 파일 전체가 슬라이드 밖 내용이다. 연습문제와 해답은 모두 시험 대비용으로 추가한 것이다.
+
 ---
 
 ## 6.1
@@ -34,7 +36,7 @@ end
 
 [`sol0601_2.m`](../../example/ch06/sol0601_2.m), [`kinetic_energy.m`](../../example/ch06/kinetic_energy.m)
 
-> **[보강]** `help`는 **파일로 저장된 함수만** 찾는다. 스크립트 끝의 local function은 `help`로 조회할 수 없으므로, 이 문제는 `kinetic_energy.m`을 별도 파일로 만들어 풀었다. 이 점 자체가 시험 포인트다.
+> **[보강]** `help 이름`은 **파일로 저장된 함수**를 찾는다. 스크립트 끝의 local function은 이름만으로는 조회되지 않고 `help 파일이름>함수이름` 형태로 불러야 하므로, 이 문제는 `kinetic_energy.m`을 별도 파일로 만들어 풀었다. 이 점 자체가 시험 포인트다.
 
 ```matlab
 function E = kinetic_energy(m, v)
