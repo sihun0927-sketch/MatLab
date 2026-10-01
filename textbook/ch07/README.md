@@ -26,7 +26,7 @@
 | [7.2.4](7.2.4-table.md) | 출력 (4) `table` | 열 벡터 입력, `VariableNames`, Variable Editor |
 | [7.3](7.3-ginput.md) | 그래프로 입력받기 | `ginput`, 좌표 받기, 점에 곡선 맞추기 |
 | [7.4](7.4-file-io.md) | 파일 읽고 쓰기 | Import Wizard, `readtable`, `writetable`, `audioread` |
-| [7.5](7.5-debugging.md) | 디버깅 | Code Analyzer, breakpoint, Step In/Out, `try/catch` |
+| [7.5](7.5-debugging.md) | 디버깅 | Code Analyzer, 섹션(`%%`), breakpoint, Step In/Out, `try/catch` |
 | [solutions.md](solutions.md) | 연습문제 해답 | 각 절 연습문제 해설 |
 
 ## 함수/키워드 색인
@@ -53,7 +53,7 @@
 | `sprintf` | `fprintf`와 같은 형식 규칙. 결과를 **돌려준다** | 7.2.3 |
 | `title`, `subtitle`, `text`, `legend` | 문자열을 받는 그래프 주석 함수들 | 7.2.3 |
 | `table` | 자료형이 다른 열을 한 변수에. **입력은 열 벡터** | 7.2.4 |
-| `'VariableNames'` | 열 이름 지정. **작은따옴표로만** | 7.2.4 |
+| `VariableNames=` | 열 이름 지정. 옛 형식 `'VariableNames', …` 에서만 작은따옴표 강제 | 7.2.4 |
 | `T.이름`, `T.("이름")` | 열 꺼내기 / 한글·공백·괄호가 든 이름일 때 | 7.2.4 |
 | `T(행,열)`, `T{행,열}` | 부분 표 / 부분 값 | 7.2.4 |
 | `height`, `width`, `summary`, `sortrows` | 표의 행 수 / 열 수 / 통계 / 정렬 | 7.2.4 |
@@ -67,6 +67,7 @@
 | `audioread` / `audiowrite` | 소리 파일 ↔ `[data, fs]` | 7.4 |
 | `sound`, `audioinfo` | 재생 / 파일 정보만 보기 | 7.4 |
 | `patients.dat` | MATLAB 내장 예제 자료 (100행 10열) | 7.4 |
+| `%%` | 섹션 경계. Run Section(`Ctrl+Enter`) | 7.5 |
 | `checkcode` | Code Analyzer를 명령으로. `-struct`, `-id` | 7.5 |
 | `%#ok<ID>` | 그 줄의 경고를 억제 | 7.5 |
 | `dbstop`, `dbclear`, `dbstatus` | breakpoint 걸기 / 지우기 / 목록 | 7.5 |
@@ -95,14 +96,14 @@
 - **형식 타입을 빼먹으면 조용히 아무것도 안 찍힌다.** 오류 메시지가 없다.
 - **2차원 배열은 열 우선으로 소비된다.** 한 줄에 들어갈 값들이 **한 열에** 모이도록 `[a; b; c]`로 쌓는다.
 - **배열 인수를 여러 개 주면 첫 배열을 다 쓰고 넘어간다.** 짝이 어긋난다.
-- **`fprintf`의 반환값은 쓴 바이트 수.** 파일로 쓸 때 `fopen` → `fprintf(fid, ...)` → `fclose`.
+- **`fprintf`의 반환값은 내보낸 글자 수**이지 파일 크기가 아니다. `"wt"`로 열면 `\n`이 CR+LF가 되어 줄 수만큼 어긋난다. 파일로 쓸 때 `fopen` → `fprintf(fid, ...)` → `fclose`.
 - **`sprintf`는 형식 규칙이 `fprintf`와 같고 결과를 돌려준다.** 형식을 큰따옴표로 주면 string, 작은따옴표로 주면 char가 나온다.
 - **TeX 기호는 역슬래시 두 번**(`'\\pi'`).
 
 ### table
 
 - **입력은 모두 열 벡터여야 한다.** 행 벡터를 줘도 오류가 안 나고 1행짜리 엉뚱한 표가 된다.
-- **`'VariableNames'`는 작은따옴표로만.** 큰따옴표면 데이터 열로 오해받아 행 수 오류가 난다.
+- **`VariableNames=[...]`가 권장 형식이다.** 옛 형식 `'VariableNames', [...]`를 쓸 때만 작은따옴표가 강제되고, 거기에 큰따옴표를 쓰면 데이터 열로 오해받아 행 수 오류가 난다.
 - **변수 이름이 그대로 열 이름이 된다.**
 - **`disp(table(...))`로 감싸면 `ans =`가 사라진다.**
 - **한글·공백·괄호가 든 열 이름은 `T.("...")`로만 접근된다.**
@@ -111,13 +112,14 @@
 
 - **`ginput`은 그래프 좌표를 준다.** 픽셀이 아니다. 개수를 생략하면 Enter까지 받는다. 둘 다 열 벡터다.
 - **Import Wizard와 `uiimport`는 사람 손이 필요하다.** 자동화에는 `readtable` 등 전용 함수를 쓴다.
-- **`readtable`은 첫 줄을 열 이름으로 쓰고 열마다 자료형을 정한다.** 글자 열의 기본값은 `cell`이므로 `'TextType','string'`을 붙이면 좋다.
+- **`readtable`은 첫 줄을 열 이름으로 쓰고 열마다 자료형을 정한다.** 글자 열의 기본값은 `cell`이므로 `TextType="string"`을 붙이면 좋다.
 - **확장자가 저장 형식을 정한다.** `writetable(T, "a.xlsx")`와 `writetable(T, "a.csv")`.
 - **읽기 함수 도움말의 "참고 항목"에 쓰기 함수가 있다.**
 
 ### 디버깅
 
 - **coding error는 터지고, logic error는 조용히 틀린 답을 낸다.** 후자가 훨씬 어렵다.
+- **`%%`가 섹션 경계다.** Run Section(`Ctrl+Enter`)으로 그 토막만 돌린다. 앞 섹션이 만든 변수는 workspace에 남아 있다. `-batch`에서는 그냥 주석이다.
 - **주황 = warning(실행은 된다), 빨강 = error(실행이 멈춘다).**
 - **경고가 전부 진짜 문제인 것은 아니다.** `%#ok<ID>` 억제는 "의도했다"는 표시로만.
 - **회색 breakpoint는 안 걸린 것이다.** 저장했는지, 문법 오류가 남았는지 확인할 것. **문법 오류가 있으면 breakpoint를 쓸 수 없다.**

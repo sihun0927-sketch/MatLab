@@ -18,20 +18,23 @@ disp(' ')
 disp('--- (1) 변수 이름이 그대로 열 이름이 된다 ---')
 table(p, g, d)      %#ok<NOPTS>
 
-disp('--- (2) VariableNames 로 열 이름 지정 ---')
-table(p, g, d, 'VariableNames', ["Planet", "Gravity", "Distance"])   %#ok<NOPTS>
+disp('--- (2) VariableNames 로 열 이름 지정 (Name=Value) ---')
+table(p, g, d, VariableNames=["Planet", "Gravity", "Distance"])   %#ok<NOPTS>
 
 disp('--- (3) disp 로 감싸면 ans = 줄이 사라진다 ---')
-disp(table(p, g, d, 'VariableNames', ["Planet", "Gravity", "Distance"]))
+disp(table(p, g, d, VariableNames=["Planet", "Gravity", "Distance"]))
 
 disp(' ')
-disp('--- VariableNames 는 작은따옴표로 써야 한다 ---')
+disp('--- 옛 방식: 옵션 이름을 인수로 나열한다. 이때는 작은따옴표여야 한다 ---')
+disp(table(p, g, d, 'VariableNames', ["Planet", "Gravity", "Distance"]))
+
 try
     table(p, g, "VariableNames", ["A", "B"]);
     disp('큰따옴표도 받아들였다.')
 catch err
-    fprintf('큰따옴표를 쓰면: %s\n', err.message);
+    fprintf('옛 방식에 큰따옴표를 쓰면: %s\n', err.message);
     fprintf('(옵션 이름이 아니라 "데이터 열"로 취급되어 행 수가 안 맞는다고 한다)\n');
+    fprintf('Name=Value 로 쓰면 이 문제가 아예 없다: VariableNames=["A","B"]\n');
 end
 
 disp(' ')

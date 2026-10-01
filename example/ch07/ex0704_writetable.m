@@ -11,7 +11,7 @@ clear; clc
 Name  = ["Ar"; "Cu"; "Fe"; "Au"];
 Z     = [18; 29; 26; 79];
 Mass  = [39.948; 63.546; 55.845; 196.967];
-T = table(Name, Z, Mass, 'VariableNames', ["Symbol", "AtomicNumber", "AtomicMass"]);
+T = table(Name, Z, Mass, VariableNames=["Symbol", "AtomicNumber", "AtomicMass"]);
 
 disp('--- 내보낼 표 ---')
 disp(T)
@@ -21,7 +21,7 @@ csvfile = fullfile(tempdir, 'elements.csv');
 txtfile = fullfile(tempdir, 'elements.txt');
 
 writetable(T, csvfile);
-writetable(T, txtfile, 'Delimiter', '\t');
+writetable(T, txtfile, Delimiter='\t');
 
 disp('--- 쓴 CSV 파일의 내용 ---')
 disp(fileread(csvfile))
@@ -34,7 +34,7 @@ fprintf('(string 으로 썼지만 기본값으로는 cell of char 로 돌아온�
 
 disp(' ')
 disp('--- string 으로 되돌리려면 TextType 을 지정한다 ---')
-T3 = readtable(csvfile, 'TextType', 'string');
+T3 = readtable(csvfile, TextType="string");
 fprintf('TextType="string" 일 때 = %s\n', class(T3.Symbol));
 
 disp(' ')

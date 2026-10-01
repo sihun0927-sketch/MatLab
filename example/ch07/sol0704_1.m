@@ -18,7 +18,7 @@ disp('--- 만든 파일 ---')
 disp(fileread(fname))
 
 % --- 읽기 ---
-T = readtable(fname, 'TextType', 'string');
+T = readtable(fname, TextType="string");
 disp('--- readtable 결과 ---')
 disp(T)
 fprintf('size = %s\n', mat2str(size(T)));

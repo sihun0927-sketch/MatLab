@@ -9,7 +9,7 @@ d = 0.5 * g * t^2;
 
 % 열 이름을 따로 변수에 담아 두면 재사용하기 좋다
 ColNames = ["Planet", "Gravity (m/s^2)", "Distance (m)"];
-T = table(p, g, d, 'VariableNames', ColNames);
+T = table(p, g, d, VariableNames=ColNames);
 
 disp('--- 이름을 붙여 workspace 에 저장한 표 ---')
 disp(T)

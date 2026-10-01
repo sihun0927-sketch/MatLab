@@ -247,7 +247,7 @@ F끼리 먼저 소비되어 한 줄에 F가 셋 들어가 버렸다.
 되읽을 때는 머리글 두 줄을 건너뛴다.
 
 ```matlab
-M = readmatrix(fname, 'NumHeaderLines', 2);
+M = readmatrix(fname, NumHeaderLines=2);
 ```
 
 ```
@@ -509,7 +509,7 @@ R^2 = 0.998468
   Temp       double
 ```
 
-`'TextType', 'string'`을 줬기 때문에 `Site`가 `cell`이 아니라 `string`으로 들어왔다. 기본값은 `cell` of char다.
+`TextType="string"`을 줬기 때문에 `Site`가 `cell`이 아니라 `string`으로 들어왔다. 기본값은 `cell` of char다.
 
 `groupsummary`로 묶어서 통계를 낸다.
 
@@ -532,7 +532,7 @@ G = groupsummary(T, "Site", ["sum" "mean"], ["Rainfall" "Temp"]);
 **읽기 → 고르기 → 열 추가 → 쓰기**가 자료 처리의 기본 흐름이다.
 
 ```matlab
-T = readtable("patients.dat", 'TextType', 'string');
+T = readtable("patients.dat", TextType="string");
 
 sel = T(T.Smoker == 0 & T.Systolic < 120, ...
         ["LastName", "Age", "Height", "Weight", "Systolic", "Diastolic"]);

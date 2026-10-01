@@ -4,7 +4,7 @@
 
 clear; clc
 
-T = readtable("patients.dat", 'TextType', 'string');
+T = readtable("patients.dat", TextType="string");
 fprintf('원본: %d 행 x %d 열\n', height(T), width(T));
 
 % --- 고르기: 비흡연자이면서 수축기 혈압이 120 미만 ---
@@ -32,7 +32,7 @@ writetable(sel, out_xlsx);
 fprintf('XLSX 로 저장: %d 바이트  ← 확장자만 바꾸면 형식이 바뀐다\n', dir(out_xlsx).bytes);
 
 % --- 되읽어 확인 ---
-back = readtable(out_csv, 'TextType', 'string');
+back = readtable(out_csv, TextType="string");
 fprintf('\n되읽은 크기 = %s, 원본과 같은가? %d\n', ...
     mat2str(size(back)), isequal(size(back), size(sel)));
 fprintf('BMI 가 그대로인가? %d\n', max(abs(back.BMI - sel.BMI)) < 1e-10);

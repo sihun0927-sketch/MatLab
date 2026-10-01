@@ -11,7 +11,7 @@ ColNames = ["Sample", "Temp", "Press"];
 Units    = ["", "degC", "kPa"];
 Descr    = ["시료 번호", "측정 온도", "측정 압력"];
 
-T = table(sample, temp, press, 'VariableNames', ColNames);
+T = table(sample, temp, press, VariableNames=ColNames);
 
 % 단위와 설명도 표에 붙여 둘 수 있다
 T.Properties.VariableUnits = Units;

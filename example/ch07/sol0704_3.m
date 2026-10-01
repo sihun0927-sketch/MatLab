@@ -15,7 +15,7 @@ disp('--- 파일 ---')
 disp(fileread(fname))
 
 disp('=== readtable: 열 이름을 살리고 열마다 자료형을 정한다 ===')
-T = readtable(fname, 'TextType', 'string');
+T = readtable(fname, TextType="string");
 disp(T)
 fprintf('class = %s, size = %s\n', class(T), mat2str(size(T)));
 
