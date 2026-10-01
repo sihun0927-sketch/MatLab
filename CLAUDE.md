@@ -1,7 +1,7 @@
 # MatLab — 공학SW 개인 시험 대비 노트
 
 원본: Holly Moore, *MATLAB for Engineers* 6th ed. 출판사 강의 슬라이드(영어 PDF).
-PDF는 `C:\Users\pc\Desktop\공학sw\`에 있고, 비주기적으로 추가·갱신된다. 원서 본문은 없다.
+PDF는 `C:\Users\sihun\Downloads\`에 있고, 비주기적으로 추가·갱신된다. 원서 본문은 없다.
 독자는 저장소 주인 한 명. 목적은 시험 전 복습.
 
 ## 챕터 작업 흐름
@@ -49,7 +49,7 @@ Chapter 5는 PDF가 `05_1`, `05_2` 둘이지만 결과물은 하나의 `ch05/`�
 MATLAB R2026a: `C:\Program Files\MATLAB\R2026a\bin\matlab.exe`. WSL에서 실행:
 
 ```bash
-"/mnt/c/Program Files/MATLAB/R2026a/bin/matlab.exe" -batch "cd('C:\Users\pc\orca\MatLab\example\ch05'); run('ex0501_plot.m')"
+"/mnt/c/Program Files/MATLAB/R2026a/bin/matlab.exe" -batch "cd('C:\Users\sihun\orca\MatLab\example\ch05'); run('ex0501_plot.m')"
 ```
 
 - 플롯 예제는 `exportgraphics(gcf, '../../textbook/chXX/img/exXXYY_keyword.png')`로 PNG를 저장한다.
@@ -57,4 +57,4 @@ MATLAB R2026a: `C:\Program Files\MATLAB\R2026a\bin\matlab.exe`. WSL에서 실행
 
 ## 커밋
 
-Co-Authored-By: Claude Fable 5.1 <noreply@anthropic.com>
+Co-Authored-By: Claude Opus 5 <noreply@anthropic.com>
