@@ -62,7 +62,7 @@
 | `ginput` | 그림창에서 찍은 점의 **그래프 좌표**를 받는다 | 7.3 |
 | `gtext` | 마우스로 찍은 자리에 글자를 놓는다 | 7.3 |
 | `uiimport` | Import Wizard를 명령으로 띄운다 (대화형) | 7.4 |
-| `readtable` / `writetable` | `.dat .txt .csv .xlsx` ↔ table | 7.4 |
+| `readtable` / `writetable` | `.dat .txt .csv .xlsx .xml` 등 ↔ table. 확장자가 종류를 정한다 | 7.4 |
 | `readmatrix` / `writematrix` | 같은 파일들 ↔ 숫자 행렬. 글자는 `NaN` | 7.4 |
 | `readcell` / `writecell` | 같은 파일들 ↔ cell array. 머리글 포함 | 7.4 |
 | `audioread` / `audiowrite` | 소리 파일 ↔ `[data, fs]` | 7.4 |
@@ -112,11 +112,11 @@
 ### `ginput` / 파일
 
 - **`ginput`은 그래프 좌표를 준다.** 픽셀이 아니다. 개수를 생략하면 Enter까지 받는다. 둘 다 열 벡터다.
-- **Import Wizard와 `uiimport`는 사람 손이 필요하다.** 자동화에는 `readtable` 등 전용 함수를 쓴다.
+- **Import Wizard와 `uiimport`는 사람 손이 필요하다.** 자동화에는 `readtable` 등 전용 함수를 쓴다. 대신 Wizard의 **Generate MATLAB code**로 같은 작업을 하는 코드를 만들어 둘 수 있다.
 - **`readtable`은 확장자로 파일 종류를 정한다**(Table 7.4: 텍스트 `.txt .dat .csv` / 스프레드시트 `.xls .xlsx …` / `.xml`).
 - **`readtable`은 첫 줄을 열 이름으로 쓰고 열마다 자료형을 정한다.** 글자 열의 기본값은 `cell`이므로 `TextType="string"`을 붙이면 좋다.
 - **확장자가 저장 형식을 정한다.** `writetable(T, "a.xlsx")`와 `writetable(T, "a.csv")`.
-- **읽기 함수 도움말의 "참고 항목"에 쓰기 함수가 있다.**
+- **쓰기 함수는 읽기 함수의 도움말 끝에서 찾는다.** (R2026a에서는 "참고 항목"(See Also) 목록)
 
 ### 디버깅
 
