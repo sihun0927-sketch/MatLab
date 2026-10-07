@@ -12,7 +12,7 @@ figure
 theme(gcf, "light")
 hold on
 bar(n(~fever), Temp(~fever), 0.3, FaceColor=[0.3 0.6 0.9])
-bar(n(fever),  Temp(fever),  0.5, FaceColor=[0.9 0.3 0.3])
+bar(n(fever),  Temp(fever),  0.3, FaceColor=[0.9 0.3 0.3])
 yline(98.6, "--", "98.6 °F")
 hold off
 xticks(n)

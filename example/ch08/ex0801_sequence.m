@@ -1,4 +1,4 @@
-% ex0800_sequence.m — 세 가지 control structure 중 sequence (8장 도입)
+% ex0801_sequence.m — 세 가지 control structure 중 sequence (8장 도입)
 % 지금까지 쓴 코드는 전부 sequence 였다. 위에서 아래로 한 줄씩, 빠짐없이 실행된다.
 
 clear; clc
