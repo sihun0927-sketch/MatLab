@@ -82,7 +82,7 @@
 | p.64 | `prompt = "Select a city from the menu:"; list = ["Boston","Denver","Honolulu"]; city = menu(prompt,list)`, `switch city case 1 …` | 8.5.5 | Q08-43, Q08-44 |
 | p.65 | 메뉴 창에서 Denver 선택 → `city = 2`, `$150` | 8.5.5 | Q08-43, Q08-44, Q08-45 |
 
-슬라이드 밖에서 만든 문제(`원본: [보강]`): Q08-07, Q08-25, Q08-29, Q08-42. textbook의 `⚠️ 함정`과 `[보강]`을 문제로 바꾼 것이다.
+슬라이드 밖에서 만든 문제(`원본: [보강]`): Q08-07, Q08-25, Q08-29, Q08-41, Q08-42. textbook의 `⚠️ 함정`과 `[보강]`을 문제로 바꾼 것이다.
 
 ## `[확인 필요]` 목록
 

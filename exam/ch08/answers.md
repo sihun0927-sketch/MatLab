@@ -281,12 +281,13 @@ fprintf("%8.0f %8.2f \n",chart)
 
 - `mph`, `fps`, `chart` 세 줄에는 세미콜론이 **있어야** 한다. 없으면 변수가 찍힌다. `disp`, `fprintf`는 세미콜론과 상관없이 찍힌다.
 - 10 mph = 14.6667 ft/s, 30 mph = 44 ft/s.
+- 줄 끝 공백은 종이에서 보이지 않으므로 서식 문자열 `"%8.0f %8.2f\n"`(공백 없이)도 정답으로 본다. 슬라이드 원문은 `\n` 앞에 공백이 있다.
 - 주석 줄은 채점 대상이 아니지만, pseudocode를 주석으로 먼저 쓰고 그 사이에 코드를 채우는 것이 슬라이드의 방법이다.
 - 근거: [8.2](../../textbook/ch08/8.2-flowchart-pseudocode.md)
 
 ### Q08-12 [단답] ★
 
-원본: p.22 Table 8.3, p.23 flowchart
+원본: p.22 Table 8.3, p.23 mph flowchart → 변형: 슬라이드 밖 명령의 도형을 묻는다
 
 1. 타원 = 코드 토막의 시작 또는 끝, 평행사변형 = 입력 또는 출력, 마름모 = 결정 지점, 직사각형 = 계산.
 2. `fprintf` → 평행사변형(출력), `input` → 평행사변형(입력), `if age<16` → 마름모(결정), `fps = mph*5280/3600` → 직사각형(계산).
@@ -534,7 +535,7 @@ result =
 
 ### Q08-23 [코드] ★★
 
-원본: p.41
+원본: p.41 `fever = Temp>98.6`, `Patient_Names(fever)` → 변형: 출력에서 코드를 거꾸로 쓴다
 
 ```matlab
 Patient_Names = ["Jason","Jose","Wesley","Rose"];
@@ -632,7 +633,7 @@ G is a small value equal to:
 
 ### Q08-28 [코드] ★★
 
-원본: p.48
+원본: p.48 `G = input(…); if G<50 … end` → 변형: `input` 대신 값 20, `G` 줄의 세미콜론 제거
 
 ```matlab
 G = 20
@@ -733,7 +734,7 @@ y =
 
 ### Q08-32 [오류] ★★
 
-원본: p.55 HINT `beep` vs `error`
+원본: p.55 HINT `beep` vs `error` → 변형: 두 코드 뒤에 `disp("Done")`을 붙여 계속 실행 여부를 드러냄
 
 (1) A:
 
@@ -758,7 +759,7 @@ Input must be positive
 
 ### Q08-33 [코드] ★★
 
-원본: p.53
+원본: p.53 `x = input(…)`, -1 입력 → 변형: `input` 대신 값 -4
 
 ```matlab
 x = -4
@@ -833,7 +834,7 @@ Drivers over 70 require a special license
 
 ### Q08-37 [코드] ★★
 
-원본: p.57
+원본: p.57 `if age<16 … elseif age<18 … elseif age<70 … else … end` → 변형: 나이 대신 점수, 부등호 방향 `>=`
 
 ```matlab
 score = 85
@@ -913,7 +914,7 @@ city =
 $345
 ```
 
-(2) Size `1x6`, Class `char`.
+(2) Size `1x6`(슬라이드 p.61 Workspace 표기 그대로), Class `char`.
 
 - `input`의 두 번째 인수 `"s"`는 입력을 **문자 그대로** 받는다. 결과는 char라서 `city =`(공백 없음)와 작은따옴표로 찍힌다.
 - 슬라이드는 그래서 `case`도 char(`'Boston'`)로 쓰라고 한다. R2026a의 `switch`는 char와 string을 섞어도 맞지만, 시험에서 자료형을 물으면 답은 char다.
@@ -921,7 +922,7 @@ $345
 
 ### Q08-41 [변형] ★★★
 
-원본: p.59 `switch` 구문 "variable is equal to option" → 변형: `case`에 부등호
+원본: [보강] p.59 `switch` 구문 "variable is equal to option"에서 → 변형: `case`에 부등호
 
 (1) `You may have a license`
 (2) `Sorry - You'll have to wait`
