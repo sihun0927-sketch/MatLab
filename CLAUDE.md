@@ -58,3 +58,8 @@ MATLAB R2026a: `C:\Program Files\MATLAB\R2026a\bin\matlab.exe`. WSL에서 실행
 ## 커밋
 
 Co-Authored-By: Claude Opus 5 <noreply@anthropic.com>
+
+## 시험 문제집 (exam/)
+
+지필 시험 대비 문제집은 `exam/chXX/`에 둔다. 출제 규칙, 레이아웃, Command Window 출력 규칙은
+[`exam/README.md`](exam/README.md)에 있다. 이슈 없이 챕터당 브랜치 `exam/chXX` 하나, PR 하나로 작업한다.
