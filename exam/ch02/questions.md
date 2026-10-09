@@ -197,7 +197,7 @@ Command Window 출력을 쓰고, 두 번째 줄에서 오류가 나는 이유와
 
 원본: p.34
 
-수학 표기 $A = [5]$, $B = [2\ \ 5]$, $C = \begin{bmatrix} 1 & 2 \\ 5 & 5 \end{bmatrix}$ 를 MATLAB 변수 `A`, `B`, `C`로 만든다. Command Window에 다음만 출력되도록 코드 세 줄을 쓰시오.
+수학 표기 $A = [5]$, $B = [2\ \ 5]$, $C = \begin{bmatrix} 1 & 2 \cr 5 & 5 \end{bmatrix}$ 를 MATLAB 변수 `A`, `B`, `C`로 만든다. Command Window에 다음만 출력되도록 코드 세 줄을 쓰시오.
 
 ```
 B =
