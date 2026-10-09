@@ -48,7 +48,7 @@ p.1–4(표지·학습목표·도입), p.91–93(Summary)에는 코드가 없다
 | p.8 | `x = input("Enter an array in brackets ")` → `[1, 2, 3; 4, 5, 6]` | 7.1 | Q07-01, Q07-05 |
 | p.9 | `y = input("Enter your name in double quotes ")` → `"Holly"` | 7.1 | Q07-02 |
 | p.10–11 | `w = input("Enter your name in single quotes ")` → `'Maria'`, `w` 1x5 char vs `y` 1x1 string | 7.1 | Q07-02, Q07-06 |
-| p.12–13 | `p = input("Enter your name - no need to include quotes ",'s')` → `Lin` | 7.1 | Q07-03, Q07-04, Q07-05, Q07-06 |
+| p.12–13 | `x = input('Enter your name', 's')`(p.12), `p = input("Enter your name - no need to include quotes ",'s')` → `Lin`(p.13) | 7.1 | Q07-03, Q07-04, Q07-05, Q07-06 |
 | p.15 | `x = 1:5`, `x` | 7.2.1 | Q07-07 |
 | p.16 | `disp(x)` | 7.2.1 | Q07-07 |
 | p.17–18 | `disp("The values in the x array are:")` | 7.2.1 | Q07-08 |
@@ -57,7 +57,7 @@ p.1–4(표지·학습목표·도입), p.91–93(Summary)에는 코드가 없다
 | p.21 | 2절: `y = 5; disp("The value in the y array is : " + y)` | 7.2.1 | Q07-08, Q07-13 |
 | p.22 | 3절: `disp("The value in the x array is : " + x')` | 7.2.1 | Q07-09 |
 | p.23 | 4절: `disp("The values in the x array are: " + num2str(x))` | 7.2.1 | Q07-09 |
-| p.24 | `disp('The moon''s gravity ...')`, `disp("Mark Twain once said ""Age ...""")` | 7.2.1 | Q07-11 |
+| p.24 | `disp('The moon''s gravity ...')`, `disp("Mark Twain once said ""Age ...""")`, `disp("""If you don't mind, it doesn't matter.""")` | 7.2.1 | Q07-11 |
 | p.25–26 | `conversation.m` (`input(...,'s')`, `"Hi"+ name`, `clock`, `pause(2)`) | 7.2.1 | Q07-12 |
 | p.28–29 | `cows = 5; fprintf("There are %f cows in the pasture", cows)` | 7.2.2 | Q07-14, Q07-15 |
 | p.30 | Table 7.1 `%f %e %d %g %c %s` | 7.2.2 | Q07-14 |
@@ -87,11 +87,11 @@ p.1–4(표지·학습목표·도입), p.91–93(Summary)에는 코드가 없다
 | p.78–80 | Example 7.1 Freefall(`g = input(...)` 등), 주황 경고 "Add a semicolon …" | 7.5 | Q07-41, Q07-43 |
 | p.81–82 | 같은 코드의 live script, `loglog(time,distance` → 빨강 "A '(' might be missing a closing ')'" | 7.5 | Q07-42, Q07-43 |
 | p.85–88 | Example 7.3 (`range = velocity^2/g*sind(2*theta)`, `text_input=sprintf("%s %4.0f meters \n", t, maximum)`), 7번 줄 breakpoint, Continue, Step | 7.5 | Q07-26, Q07-43, Q07-44 |
-| p.89–90 | Example 6.1 `radians = DR(degrees)`, `function output=DR(x)`, Step In / Step Out | 7.5 | Q07-45 |
+| p.89–90 | Example 6.1 `degrees = 0:15:180; radians = DR(degrees); degrees_radians =[degrees;radians]'`, `radians = 0:pi/12:pi;`, `function output=DR(x)`, Step In / Step Out | 7.5 | Q07-45 |
 
 ## 슬라이드 밖 / R2026a와 다른 점
 
 - 슬라이드는 R2022a 화면이다. `format loose`(R2026a 기본)의 빈 줄이 슬라이드 캡처에는 대부분 없다. 해답은 R2026a 기준으로 빈 줄을 넣었다.
 - 슬라이드 p.50은 `a = sprintf("...")`의 결과를 따옴표 없이 보여 주지만, R2026a는 string을 큰따옴표로 감싸 보인다. 문제는 `\n` 없는 형식으로 바꿔 냈다.
 - 슬라이드 p.55는 `"VariableNames"`(큰따옴표)를 쓰면 "적절한 알림"과 함께 오류가 난다고 하지만, R2026a 메시지는 행 수 오류다(Q07-30).
-- 확인이 필요한 표시 형식은 [answers.md](answers.md)에 `[확인 필요]`로 남겼다: Q07-03, Q07-11, Q07-18, Q07-30, Q07-33, Q07-42.
+- 확인이 필요한 표시 형식은 [answers.md](answers.md)에 `[확인 필요]`로 남겼다: Q07-03, Q07-11, Q07-15, Q07-18, Q07-30, Q07-33, Q07-42.

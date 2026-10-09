@@ -96,7 +96,7 @@ q =
 
 ### Q07-05 [코드] ★★
 
-원본: p.6–13 → B형: 배열 입력, `'s'` 입력, 숫자 입력을 섞었다
+원본: p.6–13 `z = input("Enter a value ")`, `x = input("Enter an array in brackets ")`, `p = input("...",'s')` → B형: 배열 입력, `'s'` 입력, 숫자 입력을 섞고 세미콜론 배치를 묻는다
 
 ```matlab
 s = input("Enter the side lengths ")
@@ -110,7 +110,7 @@ age = input("Enter your age ");
 
 ### Q07-06 [단답] ★
 
-원본: p.11–12
+원본: p.11–12 `w = input(...)` → `'Maria'` 1x5 char, `y` 1x1 string, `x = input('Enter your name', 's')` → 변형: 크기·class와 `'s'`의 이름 유래를 묻는다
 
 1. `w`: `char`, `1×5` / `y`: `string`, `1×1`.
 2. `char`.
@@ -245,7 +245,7 @@ Goodbye
 
 ### Q07-13 [코드] ★★
 
-원본: p.20–21 → B형
+원본: p.20–21 `disp("The values in the x array are:"); disp(x)`, `disp("The value in the y array is : " + y)` → B형: 점수 배열과 `mean`
 
 ```matlab
 s = [70 80 90];
@@ -295,6 +295,8 @@ cows =
 ```
 
 - `fprintf`는 줄을 바꾸지 않는다. 그래서 다음 프롬프트 `>>`가 출력 바로 뒤에 붙고, 거기서 친 `cows = 6`도 같은 줄에 보인다(슬라이드 p.32의 빨간 동그라미).
+
+> **[확인 필요]** 슬라이드는 R2022a 화면이다. R2026a 데스크톱 Command Window도 프롬프트를 같은 줄에 붙이는지.
 - 근거: [7.2.2](../../textbook/ch07/7.2.2-fprintf.md) "줄바꿈은 자동이 아니다"
 
 ### Q07-16 [출력] ★★
@@ -331,7 +333,7 @@ Done
 
 ### Q07-18 [단답] ★
 
-원본: p.35–36, p.49 HINT
+원본: p.35–36 `%8.2f`, HINT `%2.3f`, p.49 HINT(type 누락, `%%`) → 변형: 개념을 단답으로
 
 1. `8`은 **전체 폭**(소수점·부호 포함 최소 글자 수), `2`는 소수점 아래 자릿수. "앞 8자리, 뒤 2자리"가 아니다.
 2. 전체를 2칸으로 잡아 놓고 소수만 3자리를 달라는 것이라 앞뒤가 맞지 않는다(폭이 소수 자릿수보다 작다).
@@ -428,7 +430,7 @@ The interest rate is  3.50 %
 
 ### Q07-23 [코드] ★★
 
-원본: p.38–42 → B형
+원본: p.38–42 `conversions = [feet;inches]; fprintf("%4.0f feet equals %7.2f inches \n",conversions)` → B형: 섭씨→화씨, 폭 지정
 
 ```matlab
 C = 0:50:100;
@@ -489,7 +491,7 @@ ans =
 
 - 형식 문자열의 자료형이 결과의 자료형을 정한다. `"..."` → string, `'...'` → char.
 - (c) string끼리 `+`는 이어 붙이기.
-- (d) char끼리 `+`는 **문자 코드 덧셈**. `'3 apples'`(`1×8`)의 각 글자에 33을 더한 `1×8` double이 된다: 51+33, 32+33, 97+33, 112+33, 112+33, 108+33, 101+33, 115+33.
+- (d) class `double`, size `1×8`. char끼리 `+`는 이어 붙이기가 아니라 **문자 코드 덧셈**이다. `'3 apples'`(`1×8`)의 각 글자에 33을 더한 `1×8` double이 된다: 51+33, 32+33, 97+33, 112+33, 112+33, 108+33, 101+33, 115+33.
 - 근거: [7.2.3](../../textbook/ch07/7.2.3-sprintf.md) [보강], ⚠️ 함정 "형식을 작은따옴표로 주면 char가 돌아온다"
 
 ### Q07-26 [출력] ★★
@@ -549,18 +551,19 @@ p =
 
 d =
 
-   490
-   185
+  490.0000
+  185.0000
 
 ```
 
-- `d = 0.5 * [9.8; 3.7] * 100 = [490; 185]`. 정수 값이라 소수점 없이 보인다.
+- **함정:** `d`는 `[490; 185]`처럼 보이지만 `0.5*9.8`= `4.9`를 double로 100배 하면 `490.00000000000006`이 된다(부동소수점 오차). 정수가 아닌 원소가 하나라도 있으면 배열 전체가 소수 형식으로 찍힌다. 슬라이드의 `0.5*9.8*100^2`는 정확히 `49000`이라 정수로 보였다(p.52).
+- `490`, `185`로 쓰면 틀린다. `d(1) == 490`도 `false`다.
 - string **배열**은 `p = ` 뒤 공백, 그 다음 `2×1 string array` 줄이 먼저 나온다.
 - 근거: [7.2.4](../../textbook/ch07/7.2.4-table.md) "만들기"
 
 ### Q07-29 [빈칸] ★
 
-원본: p.54–57 `disp(table(p,g,d,'VariableNames',ColNames))`
+원본: p.54–57 `disp(table(p,g,d,'VariableNames',ColNames))` → 변형: `disp`와 `'VariableNames'`를 빈칸으로, `Name=Value` 형식으로 다시 쓰기
 
 1. `disp`
 2. `'VariableNames'` (작은따옴표)
@@ -696,7 +699,7 @@ b =
 
 ### Q07-36 [단답] ★
 
-원본: p.61–63
+원본: p.61–63 `[x,y] = ginput(n)`, `[x,y] = ginput`, `[a,b] = ginput` → 변형: 개수 인수·좌표 종류·size를 묻는다
 
 1. `ginput(4)`는 정확히 4점을 받고 끝난다. `ginput`은 개수 제한 없이 Return(Enter) 키를 칠 때까지 받는다.
 2. 그래프(축) 좌표. 축 범위를 바꾸면 같은 자리를 찍어도 다른 값이 나온다.
@@ -710,7 +713,7 @@ b =
 
 ### Q07-37 [단답] ★
 
-원본: p.66–69
+원본: p.66–69 Table 7.3, `uiimport`, `[data,fs] = audioread("dave.wav")`, `sound(data,fs)` → 변형: 코드와 개념을 단답으로
 
 1. `[data, fs] = audioread("dave.wav")`, `sound(data, fs)`.
 2. `uiimport`.
@@ -745,7 +748,7 @@ ans =
 
 ### Q07-39 [빈칸] ★★
 
-원본: p.70 Table 7.4, p.75 `writetable(T,"filename")`
+원본: p.70 Table 7.4, p.71 `T = readtable("patients.dat");`, p.75 `writetable(T,"filename")` → 변형: 함수 이름과 확장자를 빈칸으로
 
 1. `readtable`
 2. `writetable`
@@ -757,7 +760,7 @@ ans =
 
 ### Q07-40 [코드] ★★
 
-원본: p.71, p.75 → B형
+원본: p.71 `T = readtable("patients.dat");`, p.75 `writetable(T,"filename")` → B형: 읽고 저장한 뒤 행 수를 `fprintf`로
 
 ```matlab
 T = readtable("patients.dat");
@@ -818,7 +821,7 @@ final_distance =
 
 ### Q07-43 [단답] ★
 
-원본: p.78–84, p.85
+원본: p.78–84 Code Analyzer(주황 경고, 빨강 fatal error), p.85 breakpoint → 변형: 색·breakpoint 조건을 단답으로
 
 1. 주황: warning(실행은 된다). 빨강: error(실행이 멈춘다).
 2. 줄 번호를 더블클릭(또는 클릭)하면 빨간 표시가 생긴다. 회색이면 문법 오류가 남았거나 최신 코드를 저장하지 않은 것이다.
@@ -829,7 +832,7 @@ final_distance =
 
 ### Q07-44 [단답] ★★
 
-원본: p.85–88 Example 7.3 (7번 줄 breakpoint)
+원본: p.85–88 Example 7.3 (`range = velocity^2/g*sind(2*theta);`의 7번 줄 breakpoint, Continue, Step) → 변형: 멈춘 순간의 workspace와 프롬프트를 묻는다
 
 1. `K>>`.
 2. `g`, `velocity`, `theta`. 7번 줄은 **아직 실행되기 전**이라 `range`는 없다(슬라이드 p.86의 Workspace도 `g`, `theta`, `velocity` 셋뿐이고, 7번 줄에 초록 화살표가 있다).

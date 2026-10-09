@@ -51,7 +51,7 @@ p = input("Enter your name - no need to include quotes ")
 
 원본: p.13 (`'s'` 옵션)
 
-다음 스크립트를 실행하고 사용자가 `42`를 쳤다. Command Window에 찍히는 결과를 쓰시오. (`'0'`의 문자 코드는 48이다.)
+다음 스크립트를 실행하고 사용자가 `42`를 쳤다. Command Window에 찍히는 결과를 쓰시오.
 
 ```matlab
 p = input("Enter your age - no need to include quotes ", "s")
@@ -323,7 +323,7 @@ b
 
 원본: p.50
 
-형식 문자열의 따옴표 종류만 다르게 했다. 출력을 쓰시오. 마지막 줄 (d)에서 `'!'`의 문자 코드는 33, `'3'`은 51, 공백은 32, `'a'`는 97, `'p'`는 112, `'l'`은 108, `'e'`는 101, `'s'`는 115다.
+형식 문자열의 따옴표 종류만 다르게 했다. (a)~(c)의 출력을 쓰시오. (d)는 결과의 class와 size를 쓰고, (c)와 결과가 다른 이유를 설명하시오.
 
 ```matlab
 s1 = sprintf("%d apples", 3)     % (a)
@@ -429,7 +429,7 @@ size(T)
 
 원본: p.56 (A cleaner output)
 
-Q07-28의 `p`, `g`, `d`가 workspace에 있다. 아래 출력(`ans =`와 `2×3 table` 줄이 없다)을 만드는 한 줄을 쓰시오.
+Q07-28의 `p`, `g`, `d`가 workspace에 있다. 아래 출력을 만드는 한 줄을 쓰시오.
 
 ```
     Planet      g     Distance
@@ -506,9 +506,11 @@ T.Properties.VariableNames{1}
 원본: p.70, p.75 (Table 7.4, Exporting Data)
 
 ```matlab
-T = ___(1)___("patients.dat");     % 표 형식으로 읽기
-___(2)___(T, "patients.___(3)___")  % Excel 스프레드시트로 저장
+T = ___(1)___("patients.dat");
+___(2)___(T, "patients.___(3)___")
 ```
+
+`patients.dat`을 table 배열 `T`로 읽어, 같은 내용을 Excel 파일로 저장하려 한다. (1)~(3)을 채우시오.
 
 (4) Table 7.4에서 `readtable`이 `.txt .dat .csv`를 읽을 때와 `.xls .xlsx`를 읽을 때 각각 어떤 종류의 파일로 취급하는가?
 
