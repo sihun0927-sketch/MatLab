@@ -66,20 +66,20 @@ grid minor
 
 ### Q05-04 [출력] ★★
 
-원본: p.17 `figure` → `plot(x,y2)`, p.20–21 `clf`는 활성 figure만, p.8 `area` → 변형: `gcf`로 창 번호 확인, `clf` 뒤 `area`
+원본: p.16 `figure(2)`, p.17 `figure` → `plot(x,y2)`, p.20–21 `clf`는 활성 figure만, p.8 `area` → 변형: `figure(3)`, `gcf`로 창 번호 확인, `clf` 뒤 `area`
 
 (1)
 
 ```
 ans =
 
-     2
+     3
 
 ```
 
-(2) 2개. Figure 1에는 `cos(4x)` 곡선이 그대로 남아 있다. Figure 2는 `clf`로 지워진 뒤 `area(x, y1)`로 `cos(4x)` 아래를 칠한 영역 그래프가 그려져 있다.
+(2) Figure 1과 Figure 3. Figure 1에는 `cos(4x)` 곡선이 그대로 남아 있다. Figure 3은 `clf`로 지워진 뒤 `area(x, y1)`로 `cos(4x)` 아래를 칠한 영역 그래프가 그려져 있다.
 
-- `figure`를 인자 없이 부르면 새 창(Figure 2)이 열리고 이후 그림의 대상이 된다. `clf`는 **활성** 창만 지운다.
+- `figure(3)`은 "Figure 3" 창을 열고 이후 그림의 대상으로 삼는다. Figure 2는 만들어지지 않는다. `clf`는 **활성** 창만 지운다.
 - `f = gcf;`는 세미콜론이 있어 출력이 없고, `f.Number`는 대입이 없으므로 `ans`로 찍힌다.
 - 근거: [5.1](../../textbook/ch05/5.1-2d-plots.md) 5.1.1 figure 창 다루기
 
@@ -151,7 +151,7 @@ n =
 
 ### Q05-08 [빈칸] ★
 
-원본: p.35 `help plot` 표, p.36 `":ok"`, `":oblack"`, p.37 `"--xr"`, `"-b"`
+원본: p.35 `help plot` 표, p.36 `":ok"`, `":oblack"`, p.37 `"--xr"`, `"-b"` → 변형: 설명을 보고 LineSpec 쓰기, p.35의 `'c+:'`, `'bd'` 포함
 
 (1) `":ok"` (2) `"--xr"` (3) `"bd"` (4) `"c+:"` (5) `":oblack"`
 
@@ -177,10 +177,11 @@ c =
 ```
 
 (2) 검은색 점선 + 원 마커 / 빨간색 파선 + x 마커 / 파란색 실선(마커 없음)
+(3) 빨간색 파선(`a`, 즉 2y). 범례 이름은 **그려진 순서**대로 붙으므로 두 번째 이름 `"y/2"`가 두 번째 선 `a`에 붙는다. 이름이 틀려도 오류는 나지 않는다.
 
 - 스칼라를 곱하고 나누는 `y*2`, `y/2`는 점 연산자가 없어도 된다. `y/2 + x`는 크기가 같은 벡터의 덧셈이다.
 - 정수부가 세 자리면 앞 공백이 2칸으로 줄어 폭 10을 유지한다.
-- 근거: [5.1](../../textbook/ch05/5.1-2d-plots.md) 5.1.2
+- 근거: [5.1](../../textbook/ch05/5.1-2d-plots.md) 5.1.2, 5.1.3 `legend` ⚠️ 함정
 
 ### Q05-10 [오류] ★★
 
@@ -216,7 +217,7 @@ w =
 
 ### Q05-12 [단답] ★
 
-원본: p.48 `title("\alpha \beta \gamma")`, p.50 `xlabel("Cannon Launch Angle, \theta")`, `legend("g_1=9.8 m/s^2", …)`
+원본: p.48 `title("\alpha \beta \gamma")`, p.50 `xlabel("Cannon Launch Angle, \theta")`, `legend("g_1=9.8 m/s^2", …)` → 변형: 중괄호 없는 `A_max`
 
 (1) α β γ
 (2) 그리스 문자 θ
@@ -248,7 +249,7 @@ n =
 
 ### Q05-14 [코드] ★★
 
-원본: p.36 `x = 1:10; y = [58.5 63.8 …]; plot(x,y,":ok")`, p.46 `legend(…)`, `text(1,100,"Label plots with the text command")`
+원본: p.36 `x = 1:10; y = [58.5 63.8 …]; plot(x,y,":ok")`, p.46 `legend(…)`, `text(1,100,"Label plots with the text command")` → 변형: 데이터 4개, `y`·`n` 표시, 범례·글상자 하나씩
 
 ```matlab
 x = 1:4;
@@ -269,7 +270,7 @@ text(1, 60, "start")
 
 ### Q05-15 [출력] ★
 
-원본: p.54–55 `x = 0:pi/20:2*pi; tiledlayout(2,1); nexttile; plot(x,sin(x))`
+원본: p.54–55 `x = 0:pi/20:2*pi; tiledlayout(2,1); nexttile; plot(x,sin(x))` → 변형: `numel(x)`, `x(end)` 표시, 레이아웃을 `t`에 받음
 
 ```
 n =
@@ -288,18 +289,21 @@ ans =
 
 ### Q05-16 [단답] ★
 
-원본: p.53 tile 번호, p.56 `"flow"`, p.57 `title(t, …)`, p.60 `nexttile(3,[1,2])`
+원본: p.53 tile 번호, p.56 `"flow"`, p.57 `title(t, …)`, p.60 `nexttile(3,[1,2])` → 변형: 2×3 격자, 세로로 합치기, 인자 순서 바꾸기
 
 (1) 4 (왼쪽→오른쪽, 위→아래 순서. 1행이 1, 2, 3)
 (2) 2와 5 (2번 칸에서 시작해 2행 1열 크기)
 (3) `"flow"` — `tiledlayout("flow")`
 (4) `title("A")`는 현재 tile의 axes 하나에, `title(t, "A")`는 레이아웃 전체 위에 붙는다.
+(5) 오류가 난다. 첫 인자는 **칸 번호**(스칼라), 둘째 인자가 **크기** `[행 열]`이어야 한다. `nexttile(3, [1,2])`로 쓴다.
+
+> **[확인 필요]** `nexttile([1,2], 3)`의 오류 메시지 첫 줄.
 
 - 근거: [5.2](../../textbook/ch05/5.2-tiled-layout.md) ⚠️ 함정
 
 ### Q05-17 [빈칸] ★★
 
-원본: p.61 `tile_name = tiledlayout(2,2); … nexttile(3,[1,2]) … title(tile_name, [...])`
+원본: p.61 `tile_name = tiledlayout(2,2); … nexttile(3,[1,2]) … title(tile_name, [...])` → 변형: 핵심 세 줄을 빈칸으로
 
 (1) `tiledlayout(2,2)` (2) `nexttile(3, [1,2])` (3) `tile_name`
 
@@ -351,7 +355,7 @@ Dimensions of arrays being concatenated are not consistent.
 
 ### Q05-20 [출력] ★
 
-원본: p.64 `theta = 0:pi/100:pi; radius = sin(theta); polarplot(theta,radius)`
+원본: p.64 `theta = 0:pi/100:pi; radius = sin(theta); polarplot(theta,radius)` → 변형: `length`·`radius(51)` 표시, θ를 도 단위로
 
 (1)
 
@@ -374,7 +378,7 @@ r =
 
 ### Q05-21 [출력] ★★
 
-원본: p.67–68 `x = 0:0.5:50; y = 5*x.^2; … semilogx(x,y)` → 변형: `x = 0:1:4`, `y` 표시
+원본: p.67–68 `x = 0:0.5:50; y = 5*x.^2; … semilogx(x,y)` → 변형: `x = 0:1:4`, `y` 표시, 원 마커
 
 (1)
 
@@ -386,12 +390,13 @@ y =
 ```
 
 (2) 4개. x = 0은 로그 눈금에 올릴 수 없어서(log 0 = −∞) 첫 점이 빠진다.
+(3) `semilogy`는 새 그래프를 그려 기존 선과 제목·축 이름을 덮어쓴다(`hold off` 상태). 선을 유지한 채 눈금만 바꾸려면 `ax = gca; ax.YScale = "log";`.
 
-- 근거: [5.3](../../textbook/ch05/5.3-other-2d-plots.md) 5.3.2 ⚠️ 함정 (0이나 음수)
+- 근거: [5.3](../../textbook/ch05/5.3-other-2d-plots.md) 5.3.2 ⚠️ 함정 (0이나 음수, `semilogy` 덮어쓰기)
 
 ### Q05-22 [단답] ★★
 
-원본: p.66 Table 5.4, p.69–70 `semilogy`, `loglog`, p.72–73 "Interpreting the Graph"
+원본: p.66 Table 5.4, p.69–70 `semilogy`, `loglog`, p.72–73 "Interpreting the Graph" → 변형: 슬라이드 질문(p.73)을 기울기 값으로 묻기
 
 (1) `semilogx` → x축, `semilogy` → y축, `loglog` → 두 축 모두
 (2) `loglog`
@@ -423,17 +428,20 @@ ans =
 
 ### Q05-24 [단답] ★★
 
-원본: p.2–3 (Chapter 05_2) `bar(x)`, `bar(y)`, `bar3(y)`, `pie(x)`
+원본: p.2–3 (Chapter 05_2) `bar(x)`, `bar(y)`, `bar3(y)`, `pie(x)` → 변형: 백분율 계산, 음수 데이터
 
 (1) 5%, 10%, 25%, 20%, 40% (합 20에 대한 비율)
 (2) 2개 그룹, 그룹마다 5개. 2차원 배열은 **행 단위**로 묶는다(슬라이드 그림 "A Bar Graph of Array y"의 x눈금 1, 2).
 (3) 25%, 25%, 50%
+(4) `bar`는 −1을 아래로 향한 막대로 그린다. `pie`는 음수를 받지 않아 오류가 난다.
+
+> **[확인 필요]** `pie([1 -1 2])`의 오류 메시지 첫 줄.
 
 - 근거: [5.3.3](../../textbook/ch05/5.3.3-bar-pie.md) ⚠️ 함정
 
 ### Q05-25 [코드] ★★
 
-원본: p.8 (Chapter 05_2) `edges = [0,60,70,80,90,100]; histogram(x,edges)`, p.14 `a = histcounts(x,edges)`
+원본: p.5 (Chapter 05_2) 점수 데이터, p.8 `edges = [0,60,70,80,90,100]; histogram(x,edges)`, p.13 제목·축 이름, p.14 `a = histcounts(x,edges)` → 변형: 출력을 보고 코드 쓰기, `edges` 표시
 
 ```matlab
 x = [100,95,74,87,22,78,34,82,93,88,86,69,55,72];
@@ -482,7 +490,7 @@ b =
 
 (2) 스칼라 `5`는 **구간 개수**, 벡터 `[0 50 100]`은 **구간 경계**(구간 2개)다.
 
-- `a`는 슬라이드 p.14의 출력 그대로다. [0,30) 22 / [30,60) 34, 55 / [60,90) 8개 / [90,120] 100, 95, 93.
+- `a`는 슬라이드 p.14의 출력 그대로다. 자동 구간은 `0, 30, 60, 90, 120`(폭 30)이다. [0,30) 22 / [30,60) 34, 55 / [60,90) 8개 / [90,120] 100, 95, 93.
 - `b`는 최솟값 22부터 최댓값 100까지를 폭 15.6으로 5등분한 구간이다(22, 37.6, 53.2, 68.8, 84.4, 100). 69는 68.8보다 커서 넷째 구간에 들어간다. 슬라이드 p.7 그림의 막대 높이 2, 0, 1, 5, 6과 같다.
 
 > **[확인 필요]** `histcounts(x, 5)`의 자동 경계가 정확히 최솟값~최댓값 등분인지. p.7 그림과는 일치한다.
@@ -513,7 +521,7 @@ d =
 
 ### Q05-29 [출력] ★★
 
-원본: p.16–18 (Chapter 05_2) `x = 0:pi/20:2*pi; y1 = sin(x); y2 = exp(x); … plot(x,y1,x,y2)`
+원본: p.16–18 (Chapter 05_2) `x = 0:pi/20:2*pi; y1 = sin(x); y2 = exp(x); … plot(x,y1,x,y2)` → 변형: 양 끝 값을 표시
 
 (1)
 
@@ -539,10 +547,11 @@ ans =
 
 ### Q05-30 [빈칸] ★★
 
-원본: p.19 (Chapter 05_2) `yyaxis left %default - this is not necessary` … `yyaxis right` … `ylabel("e^x")`
+원본: p.19 (Chapter 05_2) `yyaxis left %default - this is not necessary` … `yyaxis right` … `ylabel("e^x")` → 변형: 빈칸, 오른쪽 축에 한 번 더 그리기
 
 (1) `yyaxis left` (2) `yyaxis right` (3) `"e^x"`
 (4) 왼쪽 축이 기본값이라 처음 그리는 곡선은 이미 왼쪽 y축을 쓴다.
+(5) `exp(x)` 곡선. 마지막 `yyaxis right` 상태에서 `hold on` 없이 그리면 **오른쪽 축의 곡선만** 바뀐다. 왼쪽의 `sin(x)`는 남는다.
 
 - 근거: [5.3.5](../../textbook/ch05/5.3.5-yyaxis.md) ⚠️ 함정
 
@@ -574,7 +583,7 @@ ans =
 
 ### Q05-32 [오류] ★★
 
-원본: p.23 (Chapter 05_2) `fplot(@(x) sin(x), [-2*pi,2*pi])` → 변형: `@(x)` 삭제
+원본: p.23 (Chapter 05_2) `fplot(@(x) sin(x), [-2*pi,2*pi])` → 변형: `@(x)` 삭제, `.^` 대신 `^`
 
 (1)
 
@@ -583,15 +592,15 @@ Unrecognized function or variable 'x'.
 ```
 
 (2) `fplot(@(x) sin(x), [-2*pi, 2*pi])`
-(3) `fplot`은 x값을 **배열**로 넘겨 계산하므로 요소별 연산 `.^`를 써야 한다. `^`는 행렬 거듭제곱이다.
+(3) `fplot`은 x값을 **배열**로 한꺼번에 넘겨 계산한다. `^`는 행렬 거듭제곱이라 배열 입력에서 제대로 동작하지 않으므로, 요소별 연산 `.^`로 써야 배열 입력을 그대로 받는 함수가 된다.
 
-> **[확인 필요]** `fplot(@(x) x^2, [-2 2])`가 오류로 멈추는지, 경고(`Function behaves unexpectedly on array inputs…`)만 내고 그리는지. textbook은 오류로 적었다.
+> **[확인 필요]** `fplot(@(x) x^2, [-2 2])`는 오류로 멈추지 않고 경고(`Function behaves unexpectedly on array inputs…`)를 낸 뒤 점마다 따로 계산해 그리는 것으로 예상한다. textbook은 오류로 적었다.
 
 - 근거: [5.3.6](../../textbook/ch05/5.3.6-fplot.md) ⚠️ 함정
 
 ### Q05-33 [코드] ★★
 
-원본: p.25 (Chapter 05_2) `fun = @(x) sin(x)` … `fplot(fun, [-2*pi,2*pi])`
+원본: p.25 (Chapter 05_2) `fun = @(x) sin(x)` … `fplot(fun, [-2*pi,2*pi])` → 변형: 함수 `t.^2 - 1`, 핸들 호출 `f(2)`
 
 ```matlab
 f = @(t) t.^2 - 1
@@ -640,7 +649,7 @@ Vectors must be the same length.
 
 ### Q05-36 [출력] ★★
 
-원본: p.33–35 (Chapter 05_2) `z = [1,2,…,10; 2,4,…,20; 3,4,…,12]; mesh(z)`, `z(2,5)`는 10
+원본: p.33–35 (Chapter 05_2) `z = [1,2,…,10; 2,4,…,20; 3,4,…,12]; mesh(z)`, `z(2,5)`는 10 → 변형: 인덱싱 결과 표시
 
 (1)
 
@@ -710,7 +719,7 @@ Incorrect dimensions for matrix multiplication. Check that the number of columns
 
 ### Q05-39 [출력] ★★
 
-원본: p.46 (Chapter 05_2) `[x,y,z] = peaks;` (Workspace 49x49), p.43 HINT `[X,Y] = meshgrid(-2:0.2:2)`
+원본: p.46 (Chapter 05_2) `[x,y,z] = peaks;` (Workspace 49x49), p.43 HINT `[X,Y] = meshgrid(-2:0.2:2)` → 변형: `size`로 크기 확인, 두 인자 형태로 다시 쓰기
 
 (1)
 
@@ -732,7 +741,7 @@ ans =
 
 ### Q05-40 [단답] ★★
 
-원본: p.38 `shading interp`/`flat`, p.40 colormap 목록, p.45 `contour`, `surfc`, p.47–48 `pcolor`, `shading interp`, p.49 `hold on; contour(x,y,z,20,"k"); hold off`, p.50 `contourf(x,y,z,20,"k")`, p.51 `h = contour(x,y,z); clabel(h)` (모두 Chapter 05_2)
+원본: p.38 `shading interp`/`flat`, p.40 colormap 목록, p.45 `contour`, `surfc`, p.47–48 `pcolor`, `shading interp`, p.49 `hold on; contour(x,y,z,20,"k"); hold off`, p.50 `contourf(x,y,z,20,"k")`, p.51 `h = contour(x,y,z); clabel(h)` (모두 Chapter 05_2) → 변형: 명령·인자의 의미를 단답으로
 
 (1) 기본은 `faceted`. `shading interp` (`shading flat`은 격자선만 없애고 칸마다 단색)
 (2) `parula`
@@ -740,6 +749,7 @@ ans =
 (4) `hold on`, `hold off`
 (5) `contourf`, `surfc` (격자선 곡면이면 `meshc`)
 (6) 등고선마다 높이 값을 숫자로 붙인다.
+(7) 48×48. `pcolor`는 네 꼭짓점 값으로 칸 하나를 칠하므로 마지막 행과 열은 칸이 되지 못한다.
 
 > **[보강]** textbook은 R2026a에서 `clabel(h)` 대신 `contour(x, y, z, ShowText=true)` 또는 `[C, h] = contour(…); clabel(C, h)`를 쓰라고 적었다. 슬라이드 Workspace에는 `h`가 2x510 double(등고선 행렬)로 나온다.
 
@@ -766,7 +776,7 @@ mesh(x, y, z)
 
 ### Q05-42 [출력] ★★
 
-원본: p.53, p.56–57 (Chapter 05_2) `sphere`로 만든 구, Property Inspector의 Data Aspect Ratio Mode, p.58 HINT `axis equal`
+원본: p.53, p.56–57 (Chapter 05_2) `sphere`로 만든 구, Property Inspector의 Data Aspect Ratio Mode, p.58 HINT `axis equal` → 변형: 출력 인자로 좌표만 받기
 
 (1)
 
@@ -785,7 +795,7 @@ ans =
 
 ### Q05-43 [출력] ★
 
-원본: p.60–61 (Chapter 05_2) `load seamount`, `scatter3(x,y,z)` (Workspace `x` 294x1)
+원본: p.60–61 (Chapter 05_2) `load seamount`, `scatter3(x,y,z)` (Workspace `x` 294x1) → 변형: `size(x)` 표시
 
 (1)
 
@@ -803,10 +813,29 @@ ans =
 
 ### Q05-44 [단답] ★
 
-원본: p.55, p.57 대화식 편집, p.58 `axis equal`, p.62 저장 방법 (모두 Chapter 05_2)
+원본: p.55, p.57 대화식 편집, p.58 `axis equal`, p.62 저장 방법, p.64 플롯 종류 표 (모두 Chapter 05_2) → 변형 없음(개념 단답)
 
 (1) `.fig`. 문서용은 `.png`(또는 `.jpg`, `.gif`).
 (2) 대화식 편집 결과가 사라진다. 코드로 다시 그린 그림으로 돌아간다(p.57).
 (3) `axis equal`은 세 축의 **데이터 단위 간격**을 같게 한다. `axis square`는 축 **상자**를 정사각형으로 만들 뿐 데이터 간격은 다를 수 있다.
+(4) `stem`, `stairs`
 
-- 근거: [5.5](../../textbook/ch05/5.5-editing-plots.md), [5.7](../../textbook/ch05/5.7-saving-plots.md) ⚠️ 함정
+- 근거: [5.5](../../textbook/ch05/5.5-editing-plots.md), [5.7](../../textbook/ch05/5.7-saving-plots.md) ⚠️ 함정, [5.8](../../textbook/ch05/5.8-other-plots.md)
+
+### Q05-45 [오류] ★★
+
+원본: [보강] p.62 (Chapter 05_2)의 저장 방법을 코드로 → 변형: 확장자 없는 파일 이름
+
+(1) `result.fig` (`savefig`는 확장자가 없으면 `.fig`를 붙인다)
+(2) `exportgraphics`는 파일 이름의 **확장자로 형식을 정하므로** 확장자가 없으면 오류다.
+
+```matlab
+exportgraphics(gcf, "result.png", Resolution=300)
+```
+
+> **[확인 필요]** 확장자 없는 `exportgraphics(gcf, "result")`의 오류 메시지 첫 줄.
+
+(3) `openfig("result.fig")` (Current Folder에서 파일을 더블클릭해도 열린다)
+
+- `.fig`는 MATLAB에서 다시 편집할 수 있지만 MATLAB에서만 열린다. 문서에 넣을 그림은 `.png` 등으로 내보낸다.
+- 근거: [5.7](../../textbook/ch05/5.7-saving-plots.md) ⚠️ 함정

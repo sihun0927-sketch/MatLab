@@ -3,7 +3,7 @@
 원본: `Chapter 05_1.pdf`(73쪽) + `Chapter 05_2.pdf`(69쪽). 개념 정리는 [`textbook/ch05/`](../../textbook/ch05/README.md).
 출제 규칙과 출력 규칙은 [`exam/README.md`](../README.md)를 따른다.
 
-- [문제지](questions.md) — 44문제
+- [문제지](questions.md) — 45문제
 - [해답](answers.md)
 
 ## 출제 범위 요약
@@ -18,11 +18,12 @@
 | 5.3.3–5.3.4 | `bar`, `pie`, `histogram`, `histcounts`, edge, countdensity | Q05-23 ~ Q05-28 | 6 |
 | 5.3.5–5.3.6 | `yyaxis`, `fplot`, 함수 핸들 | Q05-29 ~ Q05-33 | 5 |
 | 5.4 | `plot3`, `comet3`, `mesh`, `surf`, `meshgrid`, `shading`, `colormap`, `contour`, `pcolor`, `peaks` | Q05-34 ~ Q05-41 | 8 |
-| 5.5–5.8 | `sphere`, `axis equal`, `load seamount`, PLOTS 탭, 그림 저장 | Q05-42 ~ Q05-44 | 3 |
+| 5.5–5.8 | `sphere`, `axis equal`, `load seamount`, PLOTS 탭, `savefig`/`exportgraphics`, `stem`/`stairs` | Q05-42 ~ Q05-45 | 4 |
 
 > 5.3과 5.4, 5.5~5.8은 소절마다 코드 예제가 한두 개라서 소절을 묶어 절 헤더 하나로 출제했다. 묶은 단위마다 3문제 이상이다.
+> 5.7(저장)과 5.8(그 밖의 플롯)은 슬라이드에 코드 예제가 없어 색인표에 행이 없다. Q05-44, Q05-45가 `[보강]`과 개념 문항으로 다룬다.
 
-유형별 문제 수: `[출력]` 22, `[코드]` 5 (합 27 / 44), `[오류]` 6, `[변형]` 2, `[빈칸]` 3, `[단답]` 6.
+유형별 문제 수: `[출력]` 22, `[코드]` 5 (합 27 / 45), `[오류]` 7, `[변형]` 2, `[빈칸]` 3, `[단답]` 6.
 
 ## 원본 예제 색인
 
