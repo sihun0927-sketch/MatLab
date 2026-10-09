@@ -34,6 +34,8 @@ ans =
 - `cos(pi)`는 정확히 -1이지만 `sin(pi)`는 0이 아니다. `pi`가 π의 근삿값이라서 `1.2246e-16`이 나온다. 아주 작은 수는 과학적 표기법으로 표시된다.
 - 근거: [2.1](../../textbook/ch02/2.1-getting-started.md), [2.4](../../textbook/ch02/2.4-array-calculations.md) ⚠️ 함정(`sin(pi)`)
 
+> **[보강]** `sin(pi)`는 슬라이드에 없다. textbook 2.4 ⚠️ 함정에서 가져왔다.
+
 ### Q02-02 [코드] ★
 
 원본: p.5 `5^2`, `cos(pi)` → 변형: 결과를 이름 있는 변수에 저장
@@ -208,6 +210,8 @@ ans =
 - textbook 2.3 ⚠️ 함정의 "`isvarname`은 예약어인지까지는 확인해 주지 않는다"는 설명은 틀렸다. textbook 해답(solutions.md 2.3-2)의 설명이 맞다.
 - 근거: [2.3](../../textbook/ch02/2.3-variables-and-types.md) 대소문자 구분, [solutions.md](../../textbook/ch02/solutions.md)
 
+> **[보강]** `isvarname('for')`와 `iskeyword('max')`는 슬라이드에 없다. p.29의 예약어·함수 이름 설명을 함수 호출로 확인하는 변형이다.
+
 ### Q02-12 [오류] ★★
 
 원본: p.30 `max = 5` → 변형: 덮어쓴 뒤 함수로 호출
@@ -244,7 +248,7 @@ ans =
 
 ### Q02-14 [출력] ★★
 
-원본: p.33 Introduction to Data Types(numeric, text, logical) → 변형: `class`로 타입 확인
+원본: p.33 Introduction to Data Types(numeric, text, logical), p.11 스칼라도 1x1 배열 → 변형: `class`로 타입 확인, `size`로 크기 확인
 
 ```
 ans =
@@ -263,11 +267,18 @@ ans =
 
     'logical'
 
+ans =
+
+     1     1
+
 ```
 
 - 작은따옴표는 문자 배열(`char`), 큰따옴표는 문자열(`string`)이다. 비교 결과는 `logical`이다.
 - `class`는 타입 이름을 `char`로 돌려주므로 결과가 작은따옴표로 표시된다.
-- 근거: [2.3](../../textbook/ch02/2.3-variables-and-types.md) 2.3.2 데이터 타입
+- 스칼라도 1x1 배열이라 `size(3.5)`는 `[1 1]`(행 수, 열 수)이다.
+- 근거: [2.3](../../textbook/ch02/2.3-variables-and-types.md) 2.3.2 데이터 타입, ⚠️ 함정(스칼라도 배열)
+
+> **[보강]** `class`, `size`는 슬라이드에 나오지 않는다. p.33의 타입 분류와 p.11의 "1x1 array"를 코드로 확인하는 변형이다.
 
 ### Q02-15 [단답] ★
 
@@ -378,13 +389,13 @@ SA = 2*pi*r*(r+h)
 
 ### Q02-21 [오류] ★★
 
-원본: p.43 `r(r+h)`는 오류, `r*(r+h)`로 써야 함
+원본: p.43 `r(r+h)`는 오류, `r*(r+h)`로 써야 함 → 변형: `r = 4`, `h = 6`
 
 ```
 Index exceeds the number of array elements. Index must not exceed 1.
 ```
 
-- MATLAB은 괄호 앞의 곱셈을 생략해 주지 않는다. `r(r+h)`는 `r(15)`, 즉 1x1 변수 `r`의 15번째 원소를 꺼내는 인덱싱이라 범위를 벗어난다.
+- MATLAB은 괄호 앞의 곱셈을 생략해 주지 않는다. `r(r+h)`는 `r(10)`, 즉 1x1 변수 `r`의 10번째 원소를 꺼내는 인덱싱이라 범위를 벗어난다.
 - 고친 코드: `SA = 2*pi*r*(r+h)`
 - 근거: [2.4](../../textbook/ch02/2.4-array-calculations.md) ⚠️ 함정: 괄호를 잘못 놓으면
 
@@ -491,6 +502,8 @@ f =
 - 대괄호는 있어도 없어도 같다.
 - 근거: [2.4](../../textbook/ch02/2.4-array-calculations.md) 콜론 연산자
 
+> **[보강]** `5:1`(빈 배열)과 음수 증분 `5:-2:1`은 슬라이드에 없다.
+
 ### Q02-26 [코드] ★
 
 원본: p.46–p.47 `c = 1:2:5` → 변형: 시작·증분·끝 바꾸기
@@ -504,7 +517,7 @@ c = 0:5:20
 
 ### Q02-27 [출력] ★★
 
-원본: p.48–p.49 `d = linspace(1, 10, 3)` → `1.0000 5.5000 10.0000` → 변형: 개수 바꾸기
+원본: p.48–p.49 `d = linspace(1, 10, 3)` → `1.0000 5.5000 10.0000` → 변형: 개수 바꾸기, 개수 생략
 
 ```
 d =
@@ -515,11 +528,18 @@ g =
 
          0    2.5000    5.0000    7.5000   10.0000
 
+n =
+
+   100
+
 ```
 
 - `linspace(시작, 끝, 개수)`. 간격은 (끝-시작)/(개수-1)이다. `d`는 간격 3으로 모두 정수라 정수 형식으로 표시된다.
 - `g`는 2.5처럼 소수가 섞여서 전부 소수 형식이 된다. 0은 소수 형식 배열 안에서 `0`으로만 표시된다.
-- 근거: [2.4](../../textbook/ch02/2.4-array-calculations.md) linspace
+- 세 번째 인자를 생략하면 기본값 100개다(p.48). 원하는 개수는 항상 명시한다.
+- 근거: [2.4](../../textbook/ch02/2.4-array-calculations.md) linspace, ⚠️ 함정
+
+> **[보강]** `numel`(원소 개수)은 슬라이드에 없다. p.48의 "defaults to 100 values"를 확인하려고 썼다.
 
 ### Q02-28 [출력] ★★
 
@@ -681,19 +701,21 @@ y =
 
 - `format`은 표시만 바꾼다. `x`의 값은 그대로다.
 - `format short`로 돌아온 뒤 `x*3`은 정확히 1이 되어 정수 형식으로 찍힌다.
+
+> **[보강]** 슬라이드는 Table 2.2에서 `pi`의 표시 예만 보여준다. 같은 변수를 형식을 바꿔 다시 표시하는 흐름은 변형이다.
 - 근거: [2.4](../../textbook/ch02/2.4-array-calculations.md) 숫자 표시 형식
 
 ### Q02-36 [단답] ★
 
-원본: p.48 linspace 기본 개수, p.65–p.66 숫자 표시 형식
+원본: p.65–p.66 숫자 표시 형식
 
 1. `format rat`
 2. 소수점 아래 둘째 자리(`3.14`).
 3. 아니다. 계산은 항상 약 16자리 정밀도로 하고, 표시만 바뀐다.
 4. `1.2346e+02`
-5. 100개.
+5. `3.141592653589793e+00`
 
-- 근거: [2.4](../../textbook/ch02/2.4-array-calculations.md) 숫자 표시 형식, linspace
+- 근거: [2.4](../../textbook/ch02/2.4-array-calculations.md) 숫자 표시 형식
 
 ## 2.5 파일 저장·불러오기, 스크립트, Section 모드
 
@@ -717,6 +739,7 @@ ans =
 - `load`는 아무것도 출력하지 않는다. `.mat` 파일은 세 변수를 원래 이름 그대로 복원한다.
 - `a + c`는 스칼라 5를 모든 원소에 더한다.
 - 파일: `my_example_file.mat`. 기본 형식이 `.mat`이고 현재 폴더(Current Folder)에 저장된다.
+- 명령은 되살릴 수 없다. `save`는 Workspace의 값만 저장하고, 값을 만든 명령은 저장하지 않는다(p.67, p.68). 명령을 남기려면 스크립트로 저장한다.
 - 근거: [2.5](../../textbook/ch02/2.5-saving-and-scripts.md) 2.5.1 변수 저장하기
 
 ### Q02-38 [출력] ★★★
@@ -737,14 +760,14 @@ Unrecognized function or variable 'c'.
 
 ### Q02-39 [오류] ★★★
 
-원본: p.70 `save my_new_file2.dat a b -ascii`, p.74 Command History의 `load my_new_file2.dat`(실패 표시) → 변형 없음, 실패 이유를 묻기
+원본: p.70 `save my_new_file2.dat a b -ascii`, p.74 Command History의 `load my_new_file2.dat`(실패 표시) → 변형: `a`를 원소 2개(`[5 6]`)로
 
 ```
 Error using load
 Number of columns on line 2 of ASCII file my_new_file2.dat must be the same as previous lines.
 ```
 
-- `-ascii`는 변수들을 줄 단위로 이어 쓴다. 1행에 `a`(값 1개), 2행에 `b`(값 3개)가 들어가 행마다 열 수가 다르므로 표 하나로 읽을 수 없다.
+- `-ascii`는 변수들을 줄 단위로 이어 쓴다. 1행에 `a`(값 2개), 2행에 `b`(값 3개)가 들어가 행마다 열 수가 다르므로 표 하나로 읽을 수 없다.
 - 불러오는 방법: Current Folder에서 파일을 더블클릭해 Import Wizard로 연다(p.73–p.75). 또는 처음부터 `.mat`으로 저장한다.
 - 근거: [2.5](../../textbook/ch02/2.5-saving-and-scripts.md) ASCII 파일, Import Wizard
 
