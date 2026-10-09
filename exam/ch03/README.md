@@ -45,7 +45,7 @@
 | p.22 | `factorial(171)` → `Inf` | 3.3 | Q03-13 |
 | p.24 | `nchoosek(200,2)`, `factorial(200)/(factorial(198)*factorial(2))` → `NaN` | 3.3 | Q03-14, Q03-15 |
 | p.25 | HINT `!`는 연산자가 아니다 | 3.3 | Q03-16 |
-| p.26 | Table 3.3 `factor(12)`, `gcd(10,15)`, `lcm(2,5)`, `rats(1.5)`, `factorial(6)`, `nchoosek(10,3)`, `primes(10)`, `isprime(7)` | 3.3 | Q03-12 |
+| p.26 | Table 3.3 `factor(12)`, `gcd(10,15)`, `lcm(2,5)`, `rats(1.5)`, `factorial(6)`, `nchoosek(10,3)`, `primes(10)`, `isprime(7)`, `isprime(10)` | 3.3 | Q03-12 |
 | p.28 | `sin(pi)` → `1.2246e-016` | 3.4 | Q03-18 |
 | p.29 | HINT `a = sin^-1(x)` → `a = asin(x)` | 3.4 | Q03-19 |
 | p.30 | Table 3.4 `deg2rad(90)`, `rad2deg(pi)`, `sin(0)`, `cos(pi)`, `tan(pi)`, `asin(-1)`, `sinh(pi)`, `asinh(1)`, `sind(90)`, `asind(1)` | 3.4 | Q03-17, Q03-20 |
@@ -92,4 +92,4 @@
 - p.78: `5/0`, `0/0`의 `Warning: Divide by zero.`는 현재 나오지 않는다.
 - p.59: 균등 난수를 "also called normal random numbers"라고 한 것은 슬라이드의 오기다(Q03-36).
 
-`answers.md`에서 `[확인 필요]`로 표시한 7곳은 MATLAB에서 표시 형식을 확인할 목록이다.
+`answers.md`에서 `[확인 필요]`로 표시한 8곳은 MATLAB에서 표시 형식을 확인할 목록이다.

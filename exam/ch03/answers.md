@@ -125,7 +125,7 @@ Too many output arguments.
 
 ### Q03-06 [단답] ★
 
-원본: p.6 함수의 3요소, p.10 Screen Tips, p.11 `help tan`, `doc tan`
+원본: p.6 함수의 3요소, p.10 Screen Tips, p.11 `help tan`, `doc tan` → 변형: 슬라이드 설명을 단답으로
 
 1. 이름(name), 입력(input, 인수 argument), 출력(output)
 2. `help tan`
@@ -413,7 +413,7 @@ ans =
 
 ### Q03-16 [오류] ★
 
-원본: p.25 HINT "The ! is not a MATLAB operator"
+원본: p.25 HINT "The ! is not a MATLAB operator" → 변형: HINT 문장을 실제 입력 `n = 5!`로
 
 ```
 >> n = 5!
@@ -422,8 +422,9 @@ Error: Invalid use of operator.
 
 > **[확인 필요]** 오류 메시지 첫 줄. 문법 오류(parse error)라 줄 전체가 실행되지 않는다는 점이 핵심이다.
 
-- (1) `!`는 MATLAB의 팩토리얼 연산자가 아니다. MATLAB에서 `!`는 줄 맨 앞에서 운영체제 명령을 실행하는 기호다.
-- (2) `n = factorial(5)`
+- (1) 위 코드 블록의 오류 첫 줄.
+- (2) `!`는 MATLAB의 팩토리얼 연산자가 아니다. MATLAB에서 `!`는 줄 맨 앞에서 운영체제 명령을 실행하는 기호다.
+- (3) `n = factorial(5)`
 - 근거: [3.3](../../textbook/ch03/3.3-elementary-math.md) ⚠️ 함정 — `!`는 MATLAB 연산자가 아니다
 
 ---
@@ -511,11 +512,10 @@ d =
 
 ```
 >> a = sin^-1(0.5)
-Error using sin
-Not enough input arguments.
+Error: Invalid expression. Check for missing multiplication operator, missing or unbalanced delimiters, or other syntax error.
 ```
 
-> **[확인 필요]** 오류 메시지. `sin`이 인수 없이 먼저 호출되어 오류가 나는 것으로 보았다.
+> **[확인 필요]** 오류 메시지 첫 줄. `-1(0.5)`처럼 숫자 리터럴 뒤에 괄호를 붙이는 것은 유효한 식이 아니라서 **구문 오류(parse error)** 이고, 줄 전체가 실행되지 않는다는 점이 핵심이다.
 
 - (2) 올바른 명령
 
@@ -542,6 +542,8 @@ a =
 
 - 세미콜론: `r`, `d` 줄에는 없고 `s` 줄에는 있어야 한다.
 - `d = 90`이 정수 형식으로 찍힌 것은 왕복 변환 결과가 정확히 90.0이기 때문이다. 각도에 따라서는 `59.99999999999999`처럼 오차가 남아 `60.0000`으로 찍히기도 한다.
+
+> **[확인 필요]** `(180/pi)*((pi/180)*90)`이 정확히 90.0이라는 것은 IEEE double 계산(Python)으로 확인했다. MATLAB 내부 구현의 곱셈 순서가 다르면 `90.0000`으로 찍힐 수 있다.
 - 근거: [3.4](../../textbook/ch03/3.4-trigonometry.md) 라디안이 기본이다
 
 ---
@@ -914,7 +916,7 @@ ans =
 
 ### Q03-33 [코드] ★★
 
-원본: p.60 `x = rand(100,1); x = (x_max-x_min)*x + x_min;`, p.61 10000개 → 변형: 문제 그대로 10000개
+원본: p.60 `x = rand(100,1); x = (x_max-x_min)*x + x_min;`, p.61 10000개 → 변형: 출력을 주고 코드를 쓰는 역방향, 세미콜론 배치가 채점 포인트
 
 ```matlab
 >> x_max = 10;
@@ -978,7 +980,7 @@ ans =
 
 ### Q03-36 [단답] ★
 
-원본: p.53 68-95-99.7, p.58·p.59 균등 난수, p.62 정규 난수
+원본: [보강] p.53 68-95-99.7, p.58·p.59 균등 난수, p.62 정규 난수(개념 슬라이드) → 변형: 개념을 단답으로
 
 1. 균등 난수 `rand`, 정규 난수 `randn`
 2. 틀렸다. 균등(uniform)과 정규(normal, Gaussian)는 다른 분포다. normal 난수를 만드는 것은 `randn`이다.
@@ -1253,7 +1255,7 @@ k =
 
 ### Q03-45 [코드] ★★
 
-원본: p.76 `pi()`, p.78 Table 3.16 `eps` → 변형: `eps`로 부동소수점 비교
+원본: p.76 `pi()`, p.78 Table 3.16 `eps` + [보강] → 변형: `eps`로 부동소수점 비교(비교식은 슬라이드 밖)
 
 ```matlab
 >> p = pi()
