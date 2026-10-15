@@ -1103,3 +1103,580 @@ Outliers at index: 5  9 (values 310   -5)
 | 함정 아님 | `title("v = " + v + " m/s")` | 숫자 + string 결합 — 정상 | — |
 
 `v = 30`일 때: `Max range 91.8 m at 45 degrees`, `Angles within 90%: 35 40 45 50 55`, 표는 19×2.
+
+---
+
+## 문제 51 🐞 NaN 제거 통계
+
+[`a51_nan_stats.m`](code/a51_nan_stats.m)
+
+| 줄 | 원인 | 현상 | 수정 |
+|---|---|---|---|
+| `odd = data(rem(round(data), 2) = 1)` | 괄호 안의 `=`는 대입 | **문법 오류**라 파일 전체가 실행되지 않음: `'=' 연산자는 사용할 수 없습니다. 값이 같은지 비교하려면 '=='를 사용하십시오. 이름-값 인수를 지정하려면 ...` | `== 1` |
+| `bad = data == NaN;` | `NaN`은 **자기 자신과도 같지 않다**(3.9). 비교 결과가 전부 0이라 아무것도 지워지지 않음 | 조용히 진행. `n = 8`, `avg = NaN`, `spread = NaN`, 출력 `Mean   NaN, std   NaN over 8 samples` | `isnan(data)` |
+| 마지막 `fprintf` | `%d`가 둘인데 인수는 하나 | 인수가 떨어진 자리에서 출력이 **멈춘다**: `0 of ` 까지만 찍히고 `\n`도 안 나와 다음 출력이 같은 줄에 붙는다 | `..., sum(data > avg), n)` |
+| `n = length(data)` | 의심스럽지만 **오류 아님**. 벡터에서는 `length == numel` | — | 행렬이면 `numel` |
+
+문법 오류 하나 때문에 나머지 두 줄의 "조용한" 오류는 실제로 보이지 않는다. 시험에서는 "`=`를 고친 뒤 실행하면 …" 식으로 단계를 나눠 쓴다. 고친 출력:
+
+```
+n =
+
+     6
+
+
+avg =
+
+   10.9500
+
+
+spread =
+
+    1.6598
+
+
+odd =
+
+   12.5000   11.2000   13.1000    8.7000
+
+Mean 10.95, std  1.66 over 6 samples
+3 of 6 values are above the mean
+```
+
+---
+
+## 문제 52 📤 복소수와 rem/mod
+
+[`a52_complex_rem.m`](code/a52_complex_rem.m)
+
+```matlab
+z = [3+4i, -2i]
+r = abs(z)
+theta = rad2deg(angle(z))     % angle은 라디안. angle(z)*180/pi 도 된다
+zc = conj(z)
+zt = z'                       % 켤레 전치: 전치 + 부호 반전
+zd = z.'                      % 단순 전치
+rm = [rem(-7, 3) mod(-7, 3) rem(7, -3) mod(7, -3)]
+```
+
+- `abs`는 복소수의 **크기** √(3²+4²) = 5 (3.7).
+- `'`와 `.'`의 차이는 복소수에서만 드러난다. `zt`는 허수부 부호가 바뀌었고 `zd`는 그대로다.
+- `rem`은 부호가 **피제수**(첫 인수)를 따르고 `mod`는 **제수**를 따른다: `rem(-7,3) = -1`, `mod(-7,3) = 2`, `rem(7,-3) = 1`, `mod(7,-3) = -2` (3.3).
+- `0.0000 - 2.0000i`처럼 실수부 0도 `0.0000`으로 찍히는 것은 배열 전체가 복소수 형식으로 표시되기 때문이다.
+
+---
+
+## 문제 53 🎯 fzero / fminbnd / integral
+
+[`a53_fzero_fminbnd.m`](code/a53_fzero_fminbnd.m) → [`img/a53_fzero_fminbnd.png`](img/a53_fzero_fminbnd.png)
+
+```matlab
+f = @(x) x.^3 - 6*x.^2 + 4*x + 12;
+guesses = [-1.5 2 5];
+roots3 = arrayfun(@(x0) fzero(f, x0), guesses)
+[xmin, fmin] = fminbnd(f, 0, 6)
+A = integral(f, 0, 4)
+fprintf('Roots: %.4f  %.4f  %.4f\n', roots3)
+fprintf('Minimum f(%.4f) = %.4f on [0, 6]\n', xmin, fmin)
+fprintf('Integral from 0 to 4 = %.4f\n', A)
+fplot(f, [-2 6], LineWidth = 1.5)
+hold on
+plot(roots3, f(roots3), "ro", MarkerSize = 8, MarkerFaceColor = "r")
+plot(xmin, fmin, "ks", MarkerSize = 10, MarkerFaceColor = "y")
+yline(0, "--")
+hold off
+grid on, xlabel("x"), ylabel("f(x)")
+title("f(x) = x^3 - 6x^2 + 4x + 12")
+legend("f(x)", "roots", "minimum", Location = "northwest")
+text(xmin, fmin - 5, sprintf("min = %.2f", fmin), HorizontalAlignment = "center")
+```
+
+```
+Roots: -1.0514  2.5173  4.5341
+Minimum f(3.6330) = -4.7093 on [0, 6]
+Integral from 0 to 4 = 16.0000
+```
+
+- `fzero(f, x0)`는 **함수 handle**을 받는다. `fzero(f(x), ...)`처럼 호출 결과를 넘기면 안 된다(6.5).
+- `arrayfun(@(x0) fzero(f, x0), guesses)`는 초기값마다 `fzero`를 한 번씩 부른다. loop 대신 쓰는 방법이며 교재 6.5에 있다. `fzero(f, -1.5), fzero(f, 2), fzero(f, 5)`를 따로 써서 `[ ]`로 묶어도 정답.
+- `fminbnd`는 **구간 안의 국소 최소**만 찾는다. [0, 6]에서 x ≈ 3.63. 출력 둘을 받으면 값도 온다.
+- `integral`도 벡터 입력이 되는 handle이 필요하므로 `.^`이 필수다. 결과 16은 해석적으로도 [x⁴/4 − 2x³ + 2x² + 12x]₀⁴ = 64 − 128 + 32 + 48 = 16.
+- `yline(0)`은 `hold on` 상태에서 그려야 기존 선이 지워지지 않는다.
+
+---
+
+## 문제 54 📝 월 이름 → 계절
+
+[`a54_month_season.m`](code/a54_month_season.m)
+
+**Pseudocode** (flowchart 기호)
+
+1. (타원) 시작.
+2. (평행사변형) `m = input("Month name: ", "s")` — char로 받는다.
+3. (직사각형) `m = lower(string(m))` — string으로 바꾸고 소문자로 통일.
+4. (직사각형) `names = ["jan" ... "dec"]`, `days = [31 28 ... 31]` 정의.
+5. (직사각형) `idx = find(names == m)` — string 배열과 스칼라 string의 `==`는 원소별 비교(4.4).
+6. (마름모) `isempty(idx)`이면 → (직사각형) `error("Unknown month: %s", m)`.
+7. (마름모·switch) `switch m`: `case {"dec","jan","feb"}` → `"winter"`; `case {"mar","apr","may"}` → `"spring"`; `case {"jun","jul","aug"}` → `"summer"`; `otherwise` → `"fall"`.
+8. (평행사변형) `fprintf("%s: month %d, %d days, %s\n", upper(m), idx, days(idx), season)`.
+9. (타원) 끝.
+
+```matlab
+% m = input("Month name: ", "s");       % 원래 코드
+m = 'FEB';                              % 검증용 고정값
+m = lower(string(m));
+names = ["jan" "feb" "mar" "apr" "may" "jun" "jul" "aug" "sep" "oct" "nov" "dec"];
+days  = [31 28 31 30 31 30 31 31 30 31 30 31];
+idx = find(names == m);
+if isempty(idx)
+    error("Unknown month: %s", m)
+end
+switch m
+    case {"dec", "jan", "feb"}, season = "winter";
+    case {"mar", "apr", "may"}, season = "spring";
+    case {"jun", "jul", "aug"}, season = "summer";
+    otherwise,                  season = "fall";
+end
+fprintf("%s: month %d, %d days, %s\n", upper(m), idx, days(idx), season)
+```
+
+```
+FEB: month 2, 28 days, winter
+```
+
+- 여러 값을 한 `case`에 넣을 때는 **cell 배열** `{ }`. `"dec" | "jan"`은 pattern이 되어 쓸 수 없다(문제 08).
+- `lower`로 대소문자를 맞추는 것은 8.5.4 [보강]. `upper`는 출력용.
+- `find(names == m)`이 빈 배열이면 `days(idx)`도 빈 배열이라 `fprintf`가 그 자리를 건너뛰고 `%d`가 비어 버린다. 그래서 `isempty` 검사가 먼저 와야 한다.
+
+---
+
+## 문제 55 🐞 극좌표·막대·파이
+
+[`a55_polar_bar_pie.m`](code/a55_polar_bar_pie.m) → [`img/a55_polar_bar_pie.png`](img/a55_polar_bar_pie.png). 오류가 나기 직전까지의 그림은 [`img/q55_buggy.png`](img/q55_buggy.png).
+
+| 줄 | 원인 | 현상 | 수정 |
+|---|---|---|---|
+| `r = 2 + cos(3*theta)` | `theta`가 **도** 단위인데 `cos`는 라디안 | 오류 없음. 0~1080 rad를 10 rad 간격으로 뽑은 엉뚱한 값 | `cosd(3*theta)` 또는 `cos(deg2rad(3*theta))` |
+| `polarplot(r, theta)` | 인수 순서가 `(theta, r)`이고 theta는 **라디안**(5.3.1) | 오류 없음. 반지름이 0~360이 되어 축이 400까지 늘어나고 선이 뒤엉킨다(`q55_buggy.png` 왼쪽) | `polarplot(deg2rad(theta), r)` |
+| `title(t, "Quarterly report")` | `tiledlayout(1, 3)`을 **출력 없이** 호출해 `t`가 없다 | 실행 오류: `'t'은(는) 인식할 수 없는 함수 또는 변수입니다.` 그 전까지의 세 그림은 이미 그려져 있다 | `t = tiledlayout(1, 3);` |
+| `pie(sales, ["Q1" ...])` | 의심스럽지만 **정상**. 두 번째 인수가 string 배열이면 조각 라벨 | — | — |
+| `xticklabels(["Q1" ...])` | **정상**. `bar` 뒤에 눈금 이름을 바꾸는 표준 방법(5.3.3) | — | — |
+
+고친 그림(오른쪽 파이의 라벨, 가운데 막대의 눈금 이름, 왼쪽 세 잎 장미, 위쪽 레이아웃 제목):
+
+![a55](img/a55_polar_bar_pie.png)
+
+---
+
+## 문제 56 📤 char 산술과 string 배열
+
+[`a56_char_string.m`](code/a56_char_string.m)
+
+```matlab
+a = 'cat' + 1                 % char + 숫자 → 코드값 산술 (double)
+b = char(a)                   % 코드값 → 글자: 'dbu'
+c = "cat" + 1                 % string + 숫자 → 문자열 연결 "cat1"
+s = ["apple" "fig" "banana"]
+n = strlength(s)              % 원소별 글자 수
+L = length(s)                 % 배열의 원소 개수 3
+C = char(s')                  % 열 string → 3×6 char (공백 패딩)
+sz = size(C)
+long = s(strlength(s) > 3)
+hit = s == "fig"
+joined = s(1) + "-" + s(end)
+```
+
+- `'cat' + 1`은 각 글자의 코드(99, 97, 116)에 1을 더한 **double** 벡터. `"cat" + 1`은 **string 연결**. 같은 `+`가 자료형에 따라 정반대로 동작한다(4.4).
+- `length` vs `strlength`: 전자는 배열 크기, 후자는 글자 수.
+- `char`로 묶으면 가장 긴 원소에 맞춰 **공백 패딩**된다. `'apple '`에 공백이 붙은 것을 눈여겨봐라. 다시 `string(C)`로 바꿔도 패딩이 남는다.
+
+> **[보강]** R2026a 검증: 행 string 배열을 그대로 `char(s)`에 넣으면 3×6이 아니라 **1×6×3 3차원 char**가 된다. 행마다 글자가 놓이려면 열 벡터 `char(s')` 또는 `char("apple", "fig", "banana")`처럼 따로 넘겨야 한다.
+
+---
+
+## 문제 57 🎯 all / any / find(cond, n)
+
+[`a57_all_any_find.m`](code/a57_all_any_find.m)
+
+```matlab
+quiet = find(all(v < 3, 2))'
+fprintf('Machines always below 3.0: %s\n', num2str(quiet))
+loudShift = find(any(v > 5))
+fprintf('Shifts with a reading above 5.0: %s\n', num2str(loudShift))
+first2 = find(v > 4, 2)
+[r, c] = ind2sub(size(v), first2);
+fprintf('Reading %.1f at machine %d, shift %d\n', [v(first2)'; r'; c'])
+lastIdx = find(v > 4, 1, "last");
+[rl, cl] = ind2sub(size(v), lastIdx);
+fprintf('Last reading above 4.0: machine %d, shift %d (%.1f)\n', rl, cl, v(lastIdx))
+machine = ("M" + (1:5))';
+peak = max(v, [], 2);
+status = strings(5, 1);
+status(peak <= 4) = "OK";
+status(peak > 4) = "CHECK";
+report = table(machine, peak, status, VariableNames = ["Machine" "Peak" "Status"])
+```
+
+```
+Machines always below 3.0: 1  3
+Shifts with a reading above 5.0: 2  3
+Reading 4.4 at machine 4, shift 1
+Reading 5.2 at machine 2, shift 2
+Last reading above 4.0: machine 4, shift 4 (4.8)
+
+report =
+
+  5×3 table
+
+    Machine    Peak    Status 
+    _______    ____    _______
+
+     "M1"      2.8     "OK"   
+     "M2"      5.2     "CHECK"
+     "M3"      2.6     "OK"   
+     "M4"      6.1     "CHECK"
+     "M5"      3.1     "OK"   
+```
+
+- `all(v < 3, 2)`: 행마다(2번째 차원 따라) "전부"를 묻는다. `all(v < 3)`이면 **열마다**다. `any(v > 5)`는 기본이 열이므로 교대조별 답이 바로 나온다.
+- `find(cond, 2)`는 **열 우선** 선형 인덱스 처음 두 개(4, 7). `ind2sub`로 (행, 열)로 돌려야 기계·교대조 번호가 된다. `[r, c] = find(v > 4)`로 전부 받은 뒤 `r(1:2)`를 써도 된다.
+- `"M" + (1:5)`는 string + 숫자 벡터 → `"M1" … "M5"`(문제 26). `table`에 넣으려면 **열 벡터**여야 하므로 `'`.
+- `strings(5, 1)`로 빈 string 열을 만든 뒤 logical indexing으로 채우는 것이 `if` 없는 분류 방법(문제 04, 27).
+
+---
+
+## 문제 58 📝 bmi_report 함수
+
+[`bmi_report.m`](code/bmi_report.m), [`a58_bmi_calls.m`](code/a58_bmi_calls.m)
+
+**Pseudocode (함수)**
+
+1. `function [bmi, category] = bmi_report(weight, height, units)` 선언. 바로 아래에 `help`용 주석 블록(첫 줄에 함수 이름과 한 줄 설명, 호출 형식 두 가지).
+2. `nargin < 3`이면 `units = "metric"`.
+3. `numel(weight) ~= numel(height)`이면 `error(...)`.
+4. `any(weight <= 0) || any(height <= 0)`이면 `error(...)`. — 벡터 조건은 `any`/`all`로 스칼라로 만든 뒤 `||`.
+5. `units == "imperial"`이면 `weight = weight*0.4536`, `height = height*0.0254`.
+6. `bmi = weight ./ height.^2` (원소별).
+7. `category = strings(size(bmi))`를 만들고 네 구간을 logical indexing으로 채운다. 경계는 `&`로 묶는다.
+8. `end`.
+
+**Pseudocode (스크립트)**
+
+1. `help bmi_report`.
+2. `[b, c] = bmi_report([70 55 95], [1.75 1.80 1.70])`.
+3. `[b2, c2] = bmi_report(154, 69, "imperial")`.
+4. `assert(abs(b2 - 154*0.4536/(69*0.0254)^2) < 1e-10, "...")` — 참이면 아무 일도 없다.
+5. `try` 안에서 일부러 실패하는 `assert`와 틀린 호출 둘을 각각 실행하고 `catch err`에서 `err.message`만 출력.
+6. `table(b', c', VariableNames = ["BMI" "Category"])`.
+
+```
+  bmi_report  체질량지수와 분류
+    [bmi, category] = bmi_report(weight, height) : kg, m
+    [bmi, category] = bmi_report(weight, height, "imperial") : lb, in
+    weight와 height는 같은 크기의 벡터. 양수가 아니면 오류.
+
+b =
+
+   22.8571   16.9753   32.8720
+
+c = 
+
+  1×3 string 배열
+
+    "normal"    "under"    "obese"
+
+b2 =
+
+   22.7420
+
+c2 = 
+
+    "normal"
+
+Caught: Not everyone is normal: normal, under, obese
+Caught: weight and height must have the same number of elements
+Caught: weight and height must be positive
+
+T =
+
+  3×2 table
+
+     BMI      Category
+    ______    ________
+
+    22.857    "normal"
+    16.975    "under" 
+    32.872    "obese" 
+```
+
+- 함수 파일 이름과 `function` 줄의 이름이 같아야 하고, 스크립트와 **같은 폴더**(또는 path)에 있어야 한다(6.1, 6.3).
+- `error`는 함수 안에서 나도 스크립트까지 멈춘다. `try`/`catch`(7.5)로 감싸면 메시지를 잡고 계속 간다. `err.message`에는 서식이 적용된 문장만 들어 있다.
+- `assert(조건, 메시지, 인수...)`는 `error`의 조건부 판이다. 두 번째 호출처럼 `%s` 서식도 받는다. `strjoin`은 string 배열을 하나로 잇는 **[보강]** 함수.
+- 154 lb / 69 in은 70 kg / 1.75 m와 **정확히** 같지 않다(22.74 vs 22.86). 처음에 `abs(b2 - b(1)) < 0.05`로 썼다가 assert가 실패했고, 그래서 "직접 계산한 값"과 비교하도록 바꿨다. `assert`가 실패하면 메시지가 그대로 오류가 된다.
+
+---
+
+## 문제 59 🐞 함수 handle의 변수 캡처
+
+[`a59_handle_scope.m`](code/a59_handle_scope.m)
+
+| 줄 | 원인 | 현상 | 수정 |
+|---|---|---|---|
+| `f = @(t) 0.5*g*t^2;` | 벡터 `t`에 `^` | 실행 오류: `차원이 정확하지 않아 행렬을 거듭제곱할 수 없습니다. ... POWER(.^)를 사용하십시오.` (`d_earth = f(t)`에서) | `t.^2` |
+| `g = 1.62; d_moon = f(t)` | 익명 함수는 **만들어진 순간의** `g` 값을 안에 담는다(6.4). 나중에 `g`를 바꿔도 handle 안의 값은 9.81 그대로 | 오류 없음. `d_moon`이 `d_earth`와 **완전히 같다** | `g`를 입력으로: `f = @(t, g) 0.5*g*t.^2`, `f(t, 1.62)` |
+| `drop_time` 안의 `g` | 함수는 **자기 작업공간**만 본다. 스크립트의 `g`가 보이지 않는다(6.1) | 실행 오류: `'g'은(는) 인식할 수 없는 함수 또는 변수입니다.` | 입력으로 넘긴다 `drop_time(height, g)` (또는 `global g`를 양쪽에 — 비추천) |
+| `h = @drop_time; h(100)` | **정상**. 스크립트 끝의 local function도 `@이름`으로 handle을 만들 수 있다 | — | — |
+| `fzero(@(t) f(t) - 50, [0 10])` | **정상**. 구간 `[0 10]`의 양 끝에서 부호가 다르다 | — | — |
+
+고친 출력:
+
+```
+d_earth =
+
+         0    1.2263    4.9050   11.0363   19.6200   30.6562   44.1450
+
+d_moon =
+
+         0    0.2025    0.8100    1.8225    3.2400    5.0625    7.2900
+
+t_hit =
+
+    4.5152
+
+t_50 =
+
+    3.1928
+
+Hits the ground after 4.52 s
+
+same_as_earth =
+
+  logical
+
+   1
+```
+
+마지막 `same_as_earth`는 정답 코드에 붙인 확인용이다: `g = 9.81`로 handle을 만들고 `g = 1.62`로 바꾼 뒤 불러도 결과가 `d_earth`와 같다(`isequal` → 1). "handle은 변수의 **값**을 복사해 갖는다"가 시험 포인트.
+
+---
+
+## 문제 60 📤 fprintf 변환 문자
+
+[`a60_fprintf_formats.m`](code/a60_fprintf_formats.m)
+
+```matlab
+x = 12345.678;
+fprintf('%f|%e|%g\n', x, x, x)
+fprintf('%g|%g\n', 0.00001234, 1e6)
+fprintf('%d|%d\n', 7, 2.5)
+fprintf('%s|%s\n', "abc", 'abc')
+fprintf('%d ', 'abc'); fprintf('\n')
+fprintf('%s is %d\n', "Tom", 25, "Ann", 31)
+fprintf('[%-6s][%6s]\n', "ab", "cd")
+fprintf('%5.1f%%\n', 45.678)
+fprintf('%c%c%c\n', 72, 105, 33)
+```
+
+| 줄 | 포인트 |
+|---|---|
+| 1 | `%f`는 소수 6자리 고정, `%e`는 가수 6자리 지수형, `%g`는 **유효숫자 5~6자리**로 짧은 쪽을 고른다(7.2.2) |
+| 2 | `%g`는 아주 작거나 큰 수에서 지수형으로 바뀐다: `1.234e-05`, `1e+06` |
+| 3 | `%d`에 **정수가 아닌 값**을 주면 MATLAB이 `%e`로 바꿔 찍는다: `2.500000e+00`. 자주 나오는 함정 |
+| 4 | `%s`는 string과 char 둘 다 받는다 |
+| 5 | char를 `%d`로 찍으면 **문자 코드**(97 98 99)가 나온다. 서식에 `\n`이 없으니 따로 찍는다 |
+| 6 | 인수가 서식보다 많으면 서식을 **재사용**해 두 줄이 나온다 |
+| 7 | `%-6s`는 왼쪽 정렬, `%6s`는 오른쪽 정렬 |
+| 8 | `%`를 찍으려면 `%%`. `%5.1f`는 너비 5라 앞에 공백 하나 |
+| 9 | `%c`는 코드값을 글자로: 72 = H, 105 = i, 33 = ! |
+
+---
+
+## 문제 61 🎯 plot3 · 그룹 막대 · stem · errorbar
+
+[`a61_plot3_bar_errorbar.m`](code/a61_plot3_bar_errorbar.m) → [`img/a61_plot3_bar_errorbar.png`](img/a61_plot3_bar_errorbar.png)
+
+```matlab
+tl = tiledlayout(2, 2);
+nexttile
+t = linspace(0, 6*pi, 300);
+plot3(cos(t), sin(t), t, LineWidth = 1.5)
+grid on, view(35, 25)
+xlabel("x"), ylabel("y"), zlabel("z"), title("Helix")
+nexttile
+sales = [120 95; 143 88; 110 130];        % 행 = 분기, 열 = 제품
+bar(sales)
+xticklabels(["Q1" "Q2" "Q3"])
+ylabel("Units"), legend("A", "B", Location = "northwest"), title("Sales by product")
+nexttile
+k = 0:10;
+s = round(10*exp(-0.2*k).*cos(k), 2);
+stem(k, s, "filled")
+yline(mean(s), "r--", "mean")
+xlabel("k"), ylabel("s[k]"), title("Sampled signal")
+nexttile
+trial = [4.8 5.1 5.0 4.7; 6.2 5.8 6.0 6.4; 7.1 7.5 6.9 7.3];
+m = mean(trial, 2);
+sd = std(trial, 0, 2);
+errorbar(1:3, m, sd, "o-", LineWidth = 1.2, CapSize = 8)
+xlim([0.5 3.5]), xticks(1:3), xticklabels(["low" "mid" "high"])
+ylabel("Response"), title("Mean \pm 1 std")
+title(tl, "Problem 61")
+```
+
+![a61](img/a61_plot3_bar_errorbar.png)
+
+- `bar(행렬)`: **행이 한 묶음**, 열이 묶음 안의 막대. 3×2를 주면 분기 3묶음 × 제품 2막대(5.3.3).
+- `std(trial, 0, 2)`: 두 번째 인수 0은 "N−1로 나눔"(기본), 세 번째가 차원. `std(trial, 2)`라고 쓰면 **가중치 2**로 해석되어 오류가 난다(문제 18과 같은 함정).
+- `yline(값, 선스타일, 라벨)` 세 번째 인수가 라벨. `stem(..., "filled")`로 마커를 채운다(5.8).
+- `view(az, el)`은 3차원 시점(5.4.1). `xticks`, `CapSize`는 슬라이드 밖 **[보강]**이며 없어도 그림은 된다.
+
+---
+
+## 문제 62 🎯 몬테카를로 π
+
+[`a62_monte_carlo_pi.m`](code/a62_monte_carlo_pi.m) → [`img/a62_monte_carlo_pi.png`](img/a62_monte_carlo_pi.png)
+
+```matlab
+rng(1)
+N = 100000;
+x = rand(1, N);  y = rand(1, N);
+inside = x.^2 + y.^2 <= 1;             % logical
+piHat = 4*sum(inside)/N;
+fprintf('N = %d: pi estimate = %.4f, error = %.4f\n', N, piHat, abs(piHat - pi))
+running = 4*cumsum(inside)./(1:N);     % n개째까지의 추정값
+errRun = abs(running - pi);
+firstGood = find(errRun < 0.01, 1)
+lastBad = find(errRun >= 0.01, 1, "last")
+fprintf('Error first below 0.01 at n = %d, last above at n = %d\n', firstGood, lastBad)
+tiledlayout(1, 2)
+nexttile
+show = 1:5000;  in5 = inside(show);
+scatter(x(show(in5)), y(show(in5)), 2, "b", "filled"), hold on
+scatter(x(show(~in5)), y(show(~in5)), 2, "r", "filled"), hold off
+axis square, axis([0 1 0 1])
+title(sprintf("\\pi \\approx %.4f", piHat))
+nexttile
+semilogx(1:N, errRun), hold on
+yline(0.01, "k--", "0.01"), hold off
+xlabel("n"), ylabel("|estimate - \pi|"), grid on, title("Running error")
+```
+
+```
+N = 100000: pi estimate = 3.1469, error = 0.0053
+
+firstGood =
+
+   249
+
+lastBad =
+
+        9628
+
+Error first below 0.01 at n = 249, last above at n = 9628
+```
+
+![a62](img/a62_monte_carlo_pi.png)
+
+- `sum(logical)`은 참의 **개수**. `cumsum(logical)`은 "n개째까지의 개수"이므로 `./(1:N)`로 나누면 loop 없이 누적 추정값이 된다(3.5).
+- `find(cond, 1)`과 `find(cond, 1, "last")`는 8.3 [보강]. `firstGood`(249)과 `lastBad`(9628)가 멀리 떨어진 것은 오차가 0.01 근처에서 **여러 번 들락날락**하기 때문이다. "처음 아래로 간 n"이 "그 뒤로 계속 좋다"를 뜻하지 않는다.
+- `sprintf("\\pi")`: `sprintf`가 `\p`를 이스케이프로 해석하므로 **백슬래시를 두 번** 써야 TeX `\pi`가 살아남는다. `ylabel`에 직접 쓸 때는 한 번이면 된다.
+- `rng(1)`이 없으면 실행마다 숫자가 달라진다(3.6).
+
+---
+
+## 문제 63 📤 특수값과 정수형
+
+[`a63_special_values.m`](code/a63_special_values.m)
+
+```matlab
+x = 10:-3:-2
+y = 5:1                      % 방향이 안 맞으면 조용히 빈 배열
+e = isempty(y)
+z = [1 -1], w = [1 - 1]      % 공백이 원소 구분 vs 뺄셈
+B = ones(2, 3)*2;
+B(:, end+1) = [9; 9]         % 범위 밖 대입으로 열이 늘어난다
+I = eye(2)*5
+v = [1/0 -1/0 0/0 Inf-Inf]
+q = NaN == NaN
+k = isnan(v)
+a = int8(200)                % 포화: 127
+b = intmax("int8") + 1       % 포화: 127
+c = int8(2.5)                % 반올림(0에서 먼 쪽): 3
+d = 5/int8(2)                % double/int8 → int8, 2.5 → 3
+cls = class(d)
+```
+
+- `5:1`은 오류가 아니라 **1×0 빈 배열**. `[1 -1]`은 두 원소, `[1 - 1]`은 0 하나(4.1).
+- `1/0 = Inf`, `-1/0 = -Inf`, `0/0 = NaN`, `Inf - Inf = NaN`(3.9). `NaN == NaN`은 **0**이므로 `isnan`을 쓴다.
+- 정수형은 범위를 넘으면 오류 대신 **포화**(saturate)한다: `int8(200)`도 `intmax("int8") + 1`도 127(3.8). 소수는 반올림된다.
+- `double / int8`은 결과가 **int8**이다. 2.5가 3으로 반올림되어 `d = 3`, `class(d) = 'int8'`. 정수형끼리 서로 다른 형은 섞을 수 없다.
+- `B(:, end+1) = [9; 9]`처럼 없는 인덱스에 대입하면 배열이 자란다. 반대로 읽기에서 범위를 넘으면 오류(문제 43).
+
+---
+
+## 문제 64 🐞 요금 switch
+
+[`a64_ticket_switch.m`](code/a64_ticket_switch.m)
+
+| 줄 | 원인 | 현상 | 수정 |
+|---|---|---|---|
+| `if price > 10 fprintf("Premium\n") end` | 한 줄에 쓰려면 조건과 문장, `end` 사이에 **쉼표**가 필요 | **문법 오류**라 파일 전체가 안 돌아감: `예약된 키워드 "end"의 사용이 적절치 않습니다.` | `if price > 10, fprintf("Premium\n"), end` |
+| `case "adult", "senior"` | `case` 값 하나 뒤의 쉼표는 **문장 구분자**. `"senior"`는 case 값이 아니라 그 case 안에서 실행되는 문장이 된다 | 오류 없음. `adult`를 넣으면 `ans = "senior"`가 **화면에 찍히고** 12가 된다. `senior`를 넣으면 어느 case에도 안 맞아 `otherwise`로 간다 | `case {"adult", "senior"}` |
+| `otherwise` 안에 `price` 없음 | 요구는 "$0" | `senior`(또는 모르는 종류) 입력 시 `Unknown ticket type` 뒤 `fprintf`에서 실행 오류: `'price'은(는) 인식할 수 없는 함수 또는 변수입니다.` | `price = 0;` 추가 |
+| `if age < 0 \| age > 120` | 스칼라끼리라 동작은 한다. 슬라이드는 `if`에 `\|\|`를 권장 | — | `\|\|` (스타일) |
+| `switch lower(ticket)` 뒤 `if ticket == "child"` | 대문자 `Child`를 넣으면 switch는 맞지만 이 `if`는 거짓 | 조용한 논리 오류(경고가 안 나옴) | `ticket = lower(ticket)`을 먼저 해서 둘 다 같은 값을 쓴다 |
+| `ticket == "child"` | 의심스럽지만 **정상**. char와 **string 스칼라**의 `==`는 문자열 전체 비교라 길이가 달라도 0이 된다(`'adult' == "child"` → 0). char끼리 `'adults' == 'child '`는 길이가 같아야 하고 원소별 비교가 된다 | — | — |
+
+문법 오류를 고친 뒤 `70`, `senior`: `Unknown ticket type` → `price` 오류로 중단. `30`, `adult`: `ans = "senior"`가 찍힌 뒤 `Premium`, `Price: $12`. 완전히 고친 뒤 `70`, `Senior`:
+
+```
+Premium
+Price: $12
+```
+
+---
+
+## 문제 65 🐞 보정 종합
+
+[`a65_calibration.m`](code/a65_calibration.m) → [`img/a65_calibration.png`](img/a65_calibration.png)
+
+원본은 오류 메시지 없이 끝까지 돌고 아래를 출력한다.
+
+```
+Max error 2.34 kPa at V = 0.48 V
+All within tolerance
+```
+
+| 줄 | 원인 | 현상 | 수정 |
+|---|---|---|---|
+| `if bad` | `bad`는 **logical 벡터** `[0 1 0 0 0 0]`. 배열 조건은 **모든** 원소가 참일 때만 참(8.5.1) | 2.34 kPa 오차가 있는데도 `All within tolerance` | `if any(bad)` |
+| `length(bad)` | 개수가 아니라 벡터 **길이**(6) | 위를 고쳐도 `6 points exceed 1 kPa`로 틀림 | `sum(bad)` (또는 `nnz`, `numel(find(bad))`) |
+| `title("... %.1f kPa/V", k)` | `title`은 서식을 모른다. 두 번째 인수는 **부제목**으로 해석 | 제목에 `%.1f`가 **글자 그대로** 찍히고 그 밑에 부제목 `20.85`가 생긴다 | `title(sprintf("Calibration: k = %.1f kPa/V", k))` |
+| `V(err == worst)` | 의심스럽지만 **정상**. `worst`는 `err` 안의 값 그 자체이므로 `==`가 정확히 맞는다 | — | — |
+| `"worst = " + num2str(worst, 3) + " kPa"` | **정상**. `num2str(x, 3)`은 유효숫자 3자리 | — | — |
+| `table(V', P', ...)` | **정상**. 행 벡터를 `'`로 열로 세웠다(문제 36과 비교) | — | — |
+
+고친 출력:
+
+```
+Max error 2.34 kPa at V = 0.48 V
+1 points exceed 1 kPa
+
+result =
+
+  6×3 table
+
+     V      P     Pfit
+    ____    __    ____
+
+    0.12     0       0
+    0.48    10     7.7
+    1.03    20    19.4
+    1.51    30    29.6
+    1.98    40    39.6
+    2.47    50      50
+```
+
+![a65](img/a65_calibration.png)
+
+"오류 메시지가 없다 = 맞다"가 아니다. 이 문제의 세 오류는 전부 **조용히** 틀린다. `if` 조건에 배열이 들어가면 `any`/`all`로 의도를 분명히 하고, 서식이 필요한 문자열은 `sprintf`로 먼저 만든다는 두 규칙으로 대부분 막을 수 있다.

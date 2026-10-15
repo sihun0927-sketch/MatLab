@@ -1,7 +1,7 @@
-# 중간고사 대비 문제 50선
+# 중간고사 대비 문제 65선
 
 Holly Moore, *MATLAB for Engineers* 6th ed. Chapter 2~8 전 범위. 챕터 순서가 아니라 **섞어서** 출제했다.
-난이도는 "어려움" 기준. 해답은 [solutions.md](solutions.md), 코드는 [`code/`](code/)에 있다.
+난이도는 "어려움" 기준. 문제 51~65는 2026-10-15에 추가한 세트로, 앞 50문제가 덜 다룬 주제(`mod`/`rem`, 복소수, 정수형, `all`/`any`, `fzero`/`fminbnd`, `plot3`/`polarplot`/`bar`/`errorbar`, 함수 handle의 변수 캡처, `assert`/`try`)를 겨냥했다. 해답은 [solutions.md](solutions.md), 코드는 [`code/`](code/)에 있다.
 
 유형 표시:
 
@@ -1183,3 +1183,467 @@ summary = table(theta, range)
 ```
 
 [`code/q50_final.m`](code/q50_final.m)
+
+---
+
+## 문제 51 🐞 오류 찾기 (3장, 8장, 7장)
+
+측정값에서 결측(`NaN`)을 제거한 뒤 개수·평균·표준편차를 구하고, 반올림했을 때 홀수인 값과 평균보다 큰 값의 개수를 출력하려는 스크립트다. 오류를 모두 찾아라. **오류가 아닌데 의심스러워 보이는 줄**이 있으면 왜 괜찮은지도 써라.
+
+```matlab
+clear, clc
+data = [12.5 NaN 9.8 11.2 NaN 10.4 13.1 8.7];
+bad = data == NaN;
+data(bad) = [];
+n = length(data)
+avg = sum(data)/n
+spread = std(data)
+odd = data(rem(round(data), 2) = 1)
+fprintf('Mean %5.2f, std %5.2f over %d samples\n', avg, spread, n)
+fprintf('%d of %d values are above the mean\n', sum(data > avg))
+```
+
+[`code/q51_nan_stats.m`](code/q51_nan_stats.m)
+
+---
+
+## 문제 52 📤 결과 → 코드 (3장)
+
+다음은 한 스크립트의 전체 출력이다. 첫 줄 `z = [3+4i, -2i]` 뒤에 **7개의 문장**을 써라(`r`, `theta`, `zc`, `zt`, `zd`, `rm` 순서. `theta`는 도 단위, `zt`와 `zd`는 **전치 연산자만** 써서 만들고, `rm`은 `rem`과 `mod`를 두 번씩 쓴 4원소 벡터다).
+
+```
+z =
+
+   3.0000 + 4.0000i   0.0000 - 2.0000i
+
+
+r =
+
+     5     2
+
+
+theta =
+
+   53.1301  -90.0000
+
+
+zc =
+
+   3.0000 - 4.0000i   0.0000 + 2.0000i
+
+
+zt =
+
+   3.0000 - 4.0000i
+   0.0000 + 2.0000i
+
+
+zd =
+
+   3.0000 + 4.0000i
+   0.0000 - 2.0000i
+
+
+rm =
+
+    -1     2     1    -2
+```
+
+---
+
+## 문제 53 🎯 목적 → 코드 (6장, 5장, 7장)
+
+f(x) = x³ − 6x² + 4x + 12 에 대해 다음을 수행하는 코드를 써라.
+
+1. `f`를 **익명 함수**로 정의한다(벡터 입력이 되게).
+2. 초기 추정값 `-1.5`, `2`, `5`에서 `fzero`로 근 세 개를 구해 벡터 `roots3`에 담는다. (**loop 금지.** 힌트: `arrayfun` 또는 세 번 호출.)
+3. `fminbnd`로 구간 [0, 6]의 최솟값 위치 `xmin`과 값 `fmin`을 구한다.
+4. `integral`로 ∫₀⁴ f(x) dx 를 구한다.
+5. 근·최소·적분을 `fprintf`로 소수 넷째 자리까지 출력한다.
+6. `fplot`으로 [−2, 6]에서 곡선을 그리고, 근은 빨간 채운 원, 최소점은 노란 채운 사각형으로 표시한다. `yline(0)` 기준선, 격자, 축 이름, 제목(`x^3` 윗첨자 TeX), 범례(왼쪽 위), 최소점 아래 `min = -4.71` 꼴 주석(`sprintf`)을 넣는다.
+
+---
+
+## 문제 54 📝 의사코드 (8장, 4장, 7장)
+
+월 이름을 **대소문자 상관없이** 입력받아(`"FEB"`, `"feb"`, `"Feb"` 모두 허용) 그 달의 번호, 일수, 계절을
+
+```
+FEB: month 2, 28 days, winter
+```
+
+꼴로 출력하는 프로그램의 **pseudocode**를 써라. 조건:
+
+- 계절은 `switch`로 정하되 겨울(dec, jan, feb)·봄·여름은 한 `case`에 여러 값을 묶고, 가을은 `otherwise`로 처리한다.
+- 달 번호와 일수는 `if`/`switch` 없이 **string 배열 비교 + `find`** 로 찾는다.
+- 목록에 없는 이름이면 `error`로 멈춘다.
+- flowchart를 그린다면 각 단계가 어떤 기호(타원·평행사변형·마름모·직사각형)인지 표시한다.
+
+그 아래에 실제 코드도 완성하라.
+
+---
+
+## 문제 55 🐞 오류 찾기 (5장, 3장)
+
+1×3 타일에 (1) 세 잎 장미 곡선 r = 2 + cos 3θ (θ는 **도**)를 극좌표로, (2) 분기별 판매량 막대, (3) 같은 데이터의 파이를 그리고 레이아웃 전체 제목을 붙이려 한다. 오류를 모두 찾아라. 실행 오류가 나기 **전에** 이미 그려진 그림이 어떻게 잘못됐는지도 설명하라.
+
+```matlab
+clear, clc, clf
+theta = 0:10:360;                 % degrees
+r = 2 + cos(3*theta);
+tiledlayout(1, 3)
+nexttile
+polarplot(r, theta)
+title("Three-leaf rose")
+nexttile
+sales = [120 95 143 88];
+bar(sales)
+xticklabels(["Q1" "Q2" "Q3" "Q4"])
+ylabel("Units sold")
+nexttile
+pie(sales, ["Q1" "Q2" "Q3" "Q4"])
+title(t, "Quarterly report")
+```
+
+[`code/q55_polar_bar_pie.m`](code/q55_polar_bar_pie.m)
+
+---
+
+## 문제 56 📤 결과 → 코드 (4장)
+
+다음은 한 스크립트의 전체 출력이다. 출력을 만드는 **11개의 문장**을 써라(변수 순서대로. `C`는 `char`로, `long`은 logical indexing으로, `joined`는 `+`로 만든다).
+
+```
+a =
+
+   100    98   117
+
+
+b =
+
+    'dbu'
+
+
+c = 
+
+    "cat1"
+
+
+s = 
+
+  1×3 string 배열
+
+    "apple"    "fig"    "banana"
+
+
+n =
+
+     5     3     6
+
+
+L =
+
+     3
+
+
+C =
+
+  3×6 char 배열
+
+    'apple '
+    'fig   '
+    'banana'
+
+
+sz =
+
+     3     6
+
+
+long = 
+
+  1×2 string 배열
+
+    "apple"    "banana"
+
+
+hit =
+
+  1×3 logical 배열
+
+   0   1   0
+
+
+joined = 
+
+    "apple-banana"
+```
+
+---
+
+## 문제 57 🎯 목적 → 코드 (8장, 3장, 7장)
+
+기계 5대의 진동 측정값(행 = 기계, 열 = 교대조)이 있다.
+
+```matlab
+v = [2.1 2.8 1.9 2.4;
+     3.6 5.2 4.1 2.9;
+     1.2 2.0 2.6 1.8;
+     4.4 3.9 6.1 4.8;
+     2.7 2.2 3.1 2.5];
+```
+
+다음을 수행하는 코드를 써라. **loop 금지**, `if` 금지.
+
+1. 네 교대조 **모두** 3.0 미만이었던 기계 번호를 `Machines always below 3.0: 1  3` 꼴로 출력. (`all`)
+2. 어느 기계든 **하나라도** 5.0을 넘긴 교대조 번호를 출력. (`any`)
+3. 4.0을 넘는 측정값 중 MATLAB 선형 인덱스 순서로 **처음 두 개**를 찾아 `Reading 4.4 at machine 4, shift 1` 꼴로 출력. (`find(cond, 2)`, `ind2sub`)
+4. 4.0을 넘는 **마지막** 측정값의 위치와 값을 출력. (`find(..., 1, "last")`)
+5. 기계 이름(`"M1"`…`"M5"`, string 배열을 `+`로 생성), 기계별 최댓값, 최댓값이 4.0 초과면 `"CHECK"` 아니면 `"OK"`인 상태 열로 `table`을 만들어 표시.
+
+---
+
+## 문제 58 📝 의사코드 (6장, 7장, 8장)
+
+함수 파일 `bmi_report.m`과 그것을 시험하는 스크립트의 **pseudocode**를 쓰고 코드를 완성하라.
+
+함수 요구 사항:
+
+- `[bmi, category] = bmi_report(weight, height, units)`. `units`를 생략하면 `"metric"`(kg, m), `"imperial"`이면 lb·in을 kg·m로 바꿔 계산한다 (`nargin`).
+- `weight`와 `height`는 같은 길이의 벡터. 길이가 다르거나 0 이하 값이 있으면 `error`로 멈춘다.
+- `category`는 `bmi`와 같은 크기의 string 배열: 18.5 미만 `"under"`, 25 미만 `"normal"`, 30 미만 `"over"`, 그 이상 `"obese"`. `if` 없이 logical indexing으로.
+- `help bmi_report`가 사용법을 보여 주도록 주석을 단다.
+
+스크립트 요구 사항:
+
+- `help`를 출력하고, 세 사람(70 kg/1.75 m, 55/1.80, 95/1.70)을 metric으로, 한 사람(154 lb, 69 in)을 imperial로 계산한다.
+- imperial 결과가 직접 계산한 값과 같은지 `assert`로 확인한다.
+- 일부러 틀린 호출(길이 불일치, 음수 체중)을 `try`/`catch`로 감싸 오류 메시지만 `Caught: ...`로 출력한다.
+- 결과를 `table`로 표시한다.
+
+---
+
+## 문제 59 🐞 오류 찾기 (6장, 7장)
+
+자유 낙하 거리 d = ½ g t² 를 익명 함수로 만들어 지구(g = 9.81)와 달(g = 1.62)에서 계산하고, local function으로 100 m 높이에서의 낙하 시간을 구한 뒤 50 m에 도달하는 시간을 `fzero`로 구하려 한다. 오류를 모두 찾아라. **오류 없이 실행되지만 틀린 값**이 나오는 줄도 찾아 이유를 설명하라.
+
+```matlab
+clear, clc
+g = 9.81;
+f = @(t) 0.5*g*t^2;
+t = 0:0.5:3;
+d_earth = f(t)
+g = 1.62;
+d_moon = f(t)
+h = @drop_time;
+t_hit = h(100)
+t_50 = fzero(@(t) f(t) - 50, [0 10])
+fprintf('Hits the ground after %.2f s\n', t_hit)
+
+function tt = drop_time(height)
+tt = sqrt(2*height/g);
+end
+```
+
+[`code/q59_handle_scope.m`](code/q59_handle_scope.m)
+
+---
+
+## 문제 60 📤 결과 → 코드 (7장)
+
+다음 출력을 만드는 `fprintf` 문장 **9개**를 써라(한 줄에 하나씩, 단 5번째 줄 `97 98 99`는 `fprintf` 둘로 만들어도 된다). `x = 12345.678`이다. 각 줄에 쓴 변환 문자(`%f`, `%e`, `%g`, `%d`, `%s`, `%c`)와 너비·정렬 지정을 정확히 맞춰라. 4번째 줄은 string `"abc"`와 char `'abc'`를 하나씩 넘긴다. 6~7번째 줄은 `fprintf` **하나**로 만든다.
+
+```
+12345.678000|1.234568e+04|12345.7
+1.234e-05|1e+06
+7|2.500000e+00
+abc|abc
+97 98 99 
+Tom is 25
+Ann is 31
+[ab    ][    cd]
+ 45.7%
+Hi!
+```
+
+---
+
+## 문제 61 🎯 목적 → 코드 (5장, 3장)
+
+2×2 타일 레이아웃에 다음 네 그림을 그리는 코드를 써라. 레이아웃 제목은 `Problem 61`.
+
+1. **나선**: `t = linspace(0, 6*pi, 300)`, (cos t, sin t, t)를 `plot3`로 굵기 1.5로 그리고 `view(35, 25)`, 격자, 세 축 이름.
+2. **그룹 막대**: 분기 3개 × 제품 2개 판매량 `[120 95; 143 88; 110 130]`을 `bar`로 그려 분기별로 막대 두 개가 나란히 서게 하고, x눈금 이름 `Q1`~`Q3`, 범례 `A`, `B`(왼쪽 위).
+3. **이산 신호**: `k = 0:10`, `s = round(10*exp(-0.2*k).*cos(k), 2)`를 `stem`(채운 마커)으로 그리고 평균값에 빨간 점선 `yline`을 `"mean"` 라벨과 함께 긋는다.
+4. **오차 막대**: 세 조건에서 4회씩 측정한 `[4.8 5.1 5.0 4.7; 6.2 5.8 6.0 6.4; 7.1 7.5 6.9 7.3]`의 **행 평균**과 **행 표준편차**를 `errorbar`로 그린다(마커 `o`, 선 연결). x눈금 이름을 `low`, `mid`, `high`로 바꾸고 제목에 ± 기호(TeX `\pm`)를 넣는다.
+
+---
+
+## 문제 62 🎯 목적 → 코드 (3장, 8장, 5장)
+
+몬테카를로 방법으로 π를 추정하는 코드를 써라. **loop 금지.**
+
+1. `rng(1)`로 시드를 고정하고 [0, 1]² 안의 점 N = 100000개를 `rand`로 만든다.
+2. 사분원 x² + y² ≤ 1 안에 든 점의 비율 × 4 로 π를 추정하고 `N = 100000: pi estimate = 3.1469, error = 0.0053` 꼴로 출력한다.
+3. 점을 **n개째까지만** 썼을 때의 추정값을 전부 담은 벡터 `running`을 `cumsum`으로 만들고(길이 N), 오차 |running − π|가 처음으로 0.01 아래로 내려간 n과 마지막으로 0.01 이상이었던 n을 `find`로 구해 출력한다.
+4. 1×2 타일: 왼쪽은 앞 5000개 점을 안쪽 파랑·바깥 빨강 `scatter`(크기 2, 채움)로 그리고 `axis square`, 제목에 추정값(TeX `\pi \approx`). 오른쪽은 오차를 `semilogx`로 그리고 0.01에 `yline`.
+
+---
+
+## 문제 63 📤 결과 → 코드 (4장, 3장)
+
+다음은 한 스크립트의 전체 출력이다. 출력을 만드는 문장을 써라. `B`는 `ones`로 2×3을 만든 뒤 **열을 하나 덧붙여** 만들고, `I`는 `eye`로, `v`는 `Inf`나 `NaN`을 **직접 쓰지 않고** 나눗셈·뺄셈만으로 만든다. `a`~`d`는 모두 `int8` 변환이나 `intmax`를 거친다.
+
+```
+x =
+
+    10     7     4     1    -2
+
+
+y =
+
+  1×0 비어 있는 double 행 벡터
+
+
+e =
+
+  logical
+
+   1
+
+
+z =
+
+     1    -1
+
+
+w =
+
+     0
+
+
+B =
+
+     2     2     2     9
+     2     2     2     9
+
+
+I =
+
+     5     0
+     0     5
+
+
+v =
+
+   Inf  -Inf   NaN   NaN
+
+
+q =
+
+  logical
+
+   0
+
+
+k =
+
+  1×4 logical 배열
+
+   0   0   1   1
+
+
+a =
+
+  int8
+
+   127
+
+
+b =
+
+  int8
+
+   127
+
+
+c =
+
+  int8
+
+   3
+
+
+d =
+
+  int8
+
+   3
+
+
+cls =
+
+    'int8'
+```
+
+---
+
+## 문제 64 🐞 오류 찾기 (8장, 7장)
+
+나이와 표 종류를 입력받아 요금을 정한다. adult와 senior는 $12, child는 $7, 모르는 종류면 안내문을 내고 $0으로 둔다. child인데 12세 이상이면 경고를 내고, $10 초과면 `Premium`을 출력한다. 오류를 모두 찾아라. 문법 오류를 고친 **뒤에** 입력이 `70`, `senior`일 때와 `30`, `adult`일 때 각각 어떤 일이 생기는지도 써라.
+
+```matlab
+clear, clc
+age = input("Age: ");
+ticket = input("Ticket type (adult/child/senior): ", "s");
+if age < 0 | age > 120
+    error("Age out of range: %d", age)
+end
+switch lower(ticket)
+    case "adult", "senior"
+        price = 12;
+    case "child"
+        price = 7;
+    otherwise
+        disp("Unknown ticket type")
+end
+if ticket == "child" && age >= 12
+    warning("Child ticket but age is %d", age)
+end
+if price > 10 fprintf("Premium\n") end
+fprintf("Price: $%d\n", price)
+```
+
+[`code/q64_ticket_switch.m`](code/q64_ticket_switch.m)
+
+---
+
+## 문제 65 🐞 오류 찾기 (종합: 3·5·7·8장)
+
+압력 센서의 전압 `V`와 기준 압력 `P`로 직선 보정식 Pfit = k (V − V₁)을 만들고, 오차가 1 kPa를 넘는 점의 **개수**를 출력한 뒤 그림과 표를 만든다. 오류를 모두 찾아라. 이 스크립트는 **오류 메시지 없이 끝까지 실행된다.** 실제 출력과 그림이 목적과 어떻게 다른지, 어느 줄이 원인인지 써라.
+
+```matlab
+%% Calibration check
+clear, clc, close all
+V = [0.12 0.48 1.03 1.51 1.98 2.47];     % volts
+P = [0 10 20 30 40 50];                  % kPa
+k = (P(end) - P(1)) / (V(end) - V(1));
+Pfit = k*(V - V(1));
+err = abs(Pfit - P);
+worst = max(err);
+fprintf("Max error %4.2f kPa at V = %.2f V\n", worst, V(err == worst))
+bad = err > 1;
+if bad
+    fprintf("%d points exceed 1 kPa\n", length(bad))
+else
+    disp("All within tolerance")
+end
+plot(V, P, "o", V, Pfit, "-")
+legend("measured", "fit", Location = "northwest")
+xlabel("V, volts"), ylabel("P, kPa")
+title("Calibration: k = %.1f kPa/V", k)
+text(0.3, 40, "worst = " + num2str(worst, 3) + " kPa")
+result = table(V', P', round(Pfit', 1), VariableNames = ["V" "P" "Pfit"])
+```
+
+[`code/q65_calibration.m`](code/q65_calibration.m)
