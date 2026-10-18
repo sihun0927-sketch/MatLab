@@ -12,6 +12,7 @@ Holly Moore, *MATLAB for Engineers* 6th ed. **Chapter 2~8** 강의 슬라이드 
 | [`img/`](img/) | 문제 23의 그림, 플롯 문제의 정답 그림, 문제 55의 오류 상태 그림 |
 | `code/run_all.m` | 정답 스크립트 전부 실행 (검증용) |
 | `code/capture_outputs.m` | a·q 스크립트 전부 실행해 출력/오류를 `out/*.txt`에 저장 (해설 작성용). `capture_outputs("a5*")`처럼 패턴 지정 가능 |
+| [`bugs/`](bugs/README.md) | **🐞 오류 찾기 50선** (B01~B50, 2026-10-18). 세미콜론 `;` 쟁점 21문제 포함. `.m` 없음, 지필용 |
 
 ## 문제 유형
 
