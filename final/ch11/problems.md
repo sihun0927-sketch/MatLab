@@ -130,7 +130,7 @@ w = ['a', 98];
 
 ## 문제 11-07 (절 11.3 · 옳은 설명 고르기)
 
-Symbolic data에 대한 설명으로 옳은 것을 고르시오. (Symbolic Math Toolbox가 설치되어 있다고 가정한다.)
+Symbolic data에 대한 설명으로 슬라이드 기준 옳은 것을 고르시오. (Symbolic Math Toolbox가 설치되어 있다고 가정한다.)
 
 ① symbolic array는 symbolic variable과 function handle을 저장한다.
 
@@ -261,7 +261,7 @@ d = datetime(DATE, 'ConvertFrom', 'YYYYMMDD');
 bar(d, EMXT)
 ```
 
-① `bar(DATE, EMXT)`는 x축 눈금이 `2.015 ×10^7`처럼 숫자로 표시되어 날짜로 읽기 어렵다.
+① `bar(DATE, EMXT)`는 x축 눈금이 `×10^7` 지수가 붙은 숫자로 표시되어 날짜로 읽기 어렵다.
 
 ② 2행을 실행하면 `DATE` 자체가 datetime 배열로 바뀐다.
 
@@ -395,7 +395,7 @@ T = table(Name, Dept, Score, ________);
 
 ## 문제 11-19 (절 11.11 · 옳은 설명 고르기)
 
-다음 코드에 대한 설명으로 옳은 것을 고르시오.
+다음 코드와 table에 대한 설명으로 옳은 것을 고르시오.
 
 ```matlab
 Name = ["Kim";"Lee";"Park"];

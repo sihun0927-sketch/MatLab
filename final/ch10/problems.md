@@ -212,7 +212,7 @@ D =
 
 역행렬에 대한 설명으로 옳은 것을 고르시오.
 
-① 정사각 행렬 A의 역행렬은 `inv(A)`로도, `A^-1`로도 구할 수 있다.
+① 역행렬이 존재하는 정사각 행렬 A의 역행렬은 `inv(A)`로도, `A^-1`로도 구할 수 있다.
 
 ② `A^-1`은 A의 각 원소의 역수를 모은 행렬이다.
 
@@ -265,7 +265,7 @@ T = inv(S)              % 3
 
 ④ 오류도 경고도 없이 `T`는 모든 원소가 0인 행렬이 된다.
 
-⑤ 오류는 없다. `d = 0`이고, 3행은 `Matrix is singular to working precision.` 경고와 함께 원소가 모두 `Inf`인 `T`를 낸다.
+⑤ 오류는 없다. `d`는 0으로 표시되고, 3행은 `Matrix is singular to working precision.` 경고와 함께 원소가 모두 `Inf`인 `T`를 낸다.
 
 ---
 
@@ -275,7 +275,7 @@ T = inv(S)              % 3
 
 ① `det(A)`가 정확히 0만 아니면 `inv(A)`는 항상 믿을 수 있는 결과를 낸다.
 
-② `det(A)`가 0에 아주 가까운 행렬에 `inv`를 쓰면 `close to singular or badly scaled` 경고가 나오고 결과가 부정확할 수 있다.
+② 수학적으로 singular인 `[1 2 3; 4 5 6; 7 8 9]`처럼 `det`가 0에 아주 가깝게 나오는 행렬에 `inv`를 쓰면 `close to singular or badly scaled` 경고가 나오고 결과가 부정확할 수 있다.
 
 ③ singular 행렬에 `inv`를 쓰면 오류가 나서 프로그램이 멈춘다.
 

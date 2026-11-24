@@ -20,7 +20,7 @@ E = p*q == 12
 
 ② `r`의 값은 `10`이고, Workspace에서 `r`의 Class는 `double`이다.
 
-③ `E`는 equation이며, 둘째 줄을 `E = p*q = 12`로 써도 같은 equation이 만들어진다.
+③ `E`는 equation이며, 마지막 줄을 `E = p*q = 12`로 써도 같은 equation이 만들어진다.
 
 ④ `h`를 만드는 줄은 `.^`, `./` 같은 array 연산자를 쓰지 않았으므로 오류가 난다.
 

@@ -100,7 +100,7 @@ character array는 직사각형이어야 하므로 길이가 다른 이름을 �
 
 ## 11-07 — 정답 ①
 
-슬라이드: "Symbolic arrays store both function handles and symbolic variables."
+슬라이드: "Symbolic arrays store both function handles and symbolic variables." 실제 MATLAB의 `sym` 배열은 function handle을 담지 않는다. 시험은 슬라이드 문장 기준으로 본다.
 
 - ② `syms x`로 만든 `x`는 symbolic variable이라 값이 없어도 식 `S = x^2-2`를 만들 수 있다.
 - ③ `S`는 숫자가 아니라 식 `x^2 - 2` 자체를 저장한다.
@@ -169,7 +169,7 @@ character array는 직사각형이어야 하므로 길이가 다른 이름을 �
 
 ## 11-13 — 정답 ①
 
-`DATE`가 double이면 `bar`는 20150101 같은 큰 수를 그대로 x값으로 쓰므로 눈금이 `2.015010 ×10^7` 형태가 되어 읽기 어렵다. `datetime(DATE,'ConvertFrom','YYYYMMDD')`로 바꾸면 `Jan 2015` 같은 날짜 눈금이 된다.
+`DATE`가 double이면 `bar`는 20150101 같은 큰 수를 그대로 x값으로 쓰므로 눈금이 `×10^7` 지수가 붙은 숫자가 되어 읽기 어렵다. `datetime(DATE,'ConvertFrom','YYYYMMDD')`로 바꾸면 `Jan 2015` 같은 날짜 눈금이 된다.
 
 - ② 결과는 새 변수 `d`에 저장된다. `DATE`는 그대로 double이다.
 - ③ 바뀌는 것은 x축 데이터뿐이다. `EMXT`는 그대로다.
@@ -233,7 +233,7 @@ character array는 직사각형이어야 하므로 길이가 다른 이름을 �
 열 이름은 `table` 함수의 `VariableNames` 속성으로 정한다. 이름 배열 `cols`는 string이어도 되지만, 슬라이드는 속성 이름 `'VariableNames'`는 반드시 작은따옴표(char)여야 한다고 강조했다(string과 char를 모두 받지 않는 드문 경우).
 
 - ① 큰따옴표 `"VariableNames"`는 슬라이드가 금지한 형태다. R2026a에서도 데이터 열로 해석되어 오류가 난다.
-- ③ `RowNames`는 행 이름이다. 열 이름이 바뀌지 않는다.
+- ③ `RowNames`는 행 이름이다. 오류 없이 실행되지만 `cols`가 행 이름으로 붙고 열 이름은 바뀌지 않는다.
 - ④ `cols`를 네 번째 데이터 변수로 넣으려 하는데, 1×3이라 3행인 다른 변수와 행 수가 맞지 않는다.
 - ⑤ 변수 `cols`가 아니라 글자 `'cols'` 하나를 이름으로 준 것이다. 열은 3개인데 이름이 하나라 맞지 않는다.
 
