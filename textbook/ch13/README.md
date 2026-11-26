@@ -6,6 +6,8 @@
 
 > **[보강]** **이 장을 읽기 전에.** 사용자 요청에 따라 이 장은 MATLAB R2026a **실행 검증을 하지 않았다.** 코드 출력은 슬라이드 화면을 옮긴 것이거나 손계산·SciPy로 구한 값이다. 자세한 내용은 맨 아래 [실행 환경 메모](#실행-환경-메모)에 있다.
 
+> ⛔ **기말 시험 범위**: 13_1 전체 + 13_2 PDF 33쪽(13.6.2 연립 ODE)까지. 13.6.3 고계 ODE, 13.6.4 BVP, 13.6.5 PDE는 범위 밖이며 본문에 `⛔ 시험 범위 밖` 구분선으로 표시했다.
+
 ## 이 장이 다루는 것
 
 **데이터**(숫자 표)나 **함수**를 가지고 수치적으로 하는 다섯 가지 일이다.
@@ -16,7 +18,7 @@
 | 데이터를 **식으로** 모델링 | `polyfit`, `polyval`, `\` (13.2), Basic Fitting (13.3) | — |
 | **미분** | `diff`, `gradient` (13.4) | symbolic `diff` (Chapter 12) |
 | **적분** | `trapz` (13.5) | `integral`, `integral2`, `integral3` (13.5) |
-| **미분방정식** | — | `ode45` 등 (13.6), `bvp4c` (13.6.4), `pdepe` (13.6.5) |
+| **미분방정식** | — | `ode45` 등 (13.6), ⛔ `bvp4c` (13.6.4), `pdepe` (13.6.5)는 범위 밖 |
 
 > **[보강]** Chapter 12(symbolic)와의 관계: Chapter 12는 **식**을 넣어 **식**을 얻는다(`diff`, `int`, `dsolve`). 이 장은 **숫자**를 넣어 **숫자**를 얻는다. 같은 이름 `diff`가 입력에 따라 "미분"과 "이웃 원소의 차이"로 다르게 동작한다.
 
@@ -29,8 +31,8 @@
 | [13.3](13.3-interactive-fitting-tools.md) | Using the Interactive Fitting Tools | 13.3.1 Basic Fitting(Tools 메뉴), display options, Data Statistics, 13.3.2 Curve Fitting Toolbox |
 | [13.4](13.4-numerical-differentiation.md) | Differences and Numerical Differentiation | `diff`로 기울기, bar graph, 13.4.2 forward·backward·central difference, `gradient` |
 | [13.5](13.5-numerical-integration.md) | Numerical Integration | quadrature, trapezoid rule(`trapz`), `integral`, `integral2`, `integral3` |
-| [13.6](13.6-solving-odes.md) | Solving Differential Equations Numerically | solver 표, `ode45` 세 입력, 13.6.1 function handle 입력·연립, 13.6.3 고계 ODE(2계, 5계) |
-| [13.6.4](13.6.4-boundary-value-problems.md) | Boundary Value Problems, 13.6.5 Partial Differential Equations | `bvp4c` 세 입력, residual 함수, `bvpinit`, 결과 structure, `pdepe` |
+| [13.6](13.6-solving-odes.md) | Solving Differential Equations Numerically | solver 표, `ode45` 세 입력, 13.6.1 function handle 입력·연립, ⛔ 13.6.3 고계 ODE(2계, 5계)는 범위 밖 |
+| ⛔ [13.6.4](13.6.4-boundary-value-problems.md) | (범위 밖) Boundary Value Problems, 13.6.5 Partial Differential Equations | `bvp4c` 세 입력, residual 함수, `bvpinit`, 결과 structure, `pdepe` |
 | [solutions](solutions.md) | 연습문제 해답 | 절별 2~3문제 |
 
 > **[보강]** 슬라이드에는 13.4.1과 13.6.2라는 번호가 나오지 않는다(13.4 → 13.4.2, 13.6.1 → 13.6.3). `diff` 함수 부분과 Systems of Equations 부분이 각각 그 자리에 해당하는 내용이다.
@@ -66,10 +68,10 @@
 | `ode23t` | moderately stiff | [13.6](13.6-solving-odes.md#matlab-ode-solvers) |
 | `ode15i` | fully implicit | [13.6](13.6-solving-odes.md#matlab-ode-solvers) |
 | `@name` | 이름 있는 함수에 대한 function handle | [13.6.1](13.6-solving-odes.md#1361-function-handle-input) |
-| `bvp4c(odefun,bcfun,guess)` | 경계값 문제. 결과는 structure(`x`, `y`, `yp`, `stats`) | [13.6.4](13.6.4-boundary-value-problems.md#the-bvp4c-function-input) |
-| `bvpinit(mesh,yinit)` | `bvp4c`의 초기 추정 structure(`x`, `y`, `yinit`) | [13.6.4](13.6.4-boundary-value-problems.md#bvpinit) |
-| `pdepe` | 제한적인 PDE solver | [13.6.5](13.6.4-boundary-value-problems.md#1365-partial-differential-equations) |
-| `doc pdepe` | 도움말 문서 열기 | [13.6.5](13.6.4-boundary-value-problems.md#1365-partial-differential-equations) |
+| `bvp4c(odefun,bcfun,guess)` | ⛔ 범위 밖. 경계값 문제. 결과는 structure(`x`, `y`, `yp`, `stats`) | [13.6.4](13.6.4-boundary-value-problems.md#the-bvp4c-function-input) |
+| `bvpinit(mesh,yinit)` | ⛔ 범위 밖. `bvp4c`의 초기 추정 structure(`x`, `y`, `yinit`) | [13.6.4](13.6.4-boundary-value-problems.md#bvpinit) |
+| `pdepe` | ⛔ 범위 밖. 제한적인 PDE solver | [13.6.5](13.6.4-boundary-value-problems.md#1365-partial-differential-equations) |
+| `doc pdepe` | ⛔ 범위 밖. 도움말 문서 열기 | [13.6.5](13.6.4-boundary-value-problems.md#1365-partial-differential-equations) |
 
 ### `[보강]`에서 추가로 쓴 함수
 
@@ -94,7 +96,7 @@
 > | `trapz(x, y)` | x 먼저 | 1 (스칼라) |
 > | `integral(f, a, b)` | handle, 아래끝, 위끝 | 1 |
 > | `ode45(f, tspan, y0)` | handle `@(t,y)`, 구간, 초기 조건 | `[t,y]` 열 방향 |
-> | `bvp4c(odefun, bcfun, guess)` | ODE, 경계 조건, 추정 | structure |
+> | `bvp4c(odefun, bcfun, guess)` | ⛔ 범위 밖. ODE, 경계 조건, 추정 | structure |
 
 ## 슬라이드의 오탈자
 
@@ -105,7 +107,7 @@
 > | 13.2.1 The polyfit function | `y = −2.914x + 14.2857` | 화면 출력은 `-2.9143` |
 > | 13.2.3 Second Order Polynomial Fit | `y = 0.0536x² − 3.1821 + 14.4643` | `− 3.1821x` (x 누락) |
 > | 13.5 Numerical Integration | "implemented with the trap function" | `trapz` |
-> | 13.6.3 | 함수 이름 `fiveth_order` | 철자는 fifth지만 함수 이름이므로 그대로 둠 |
+> | 13.6.3 | ⛔ 범위 밖. 함수 이름 `fiveth_order` | 철자는 fifth지만 함수 이름이므로 그대로 둠 |
 > | 절 번호 | 13.4.1, 13.6.2 없음 | — |
 
 ## 실행 환경 메모

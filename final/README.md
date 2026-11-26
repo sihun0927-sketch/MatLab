@@ -1,6 +1,6 @@
-# 기말 대비 객관식 100문제 (final)
+# 기말 대비 객관식 97문제 (final)
 
-Holly Moore, *MATLAB for Engineers* 6th ed. 강의 슬라이드 Chapter 9~13에서 장마다 20문제씩 만든 객관식 문제집이다.
+Holly Moore, *MATLAB for Engineers* 6th ed. 강의 슬라이드 Chapter 9~13에서 장마다 20문제씩 만든 객관식 문제집이다. 13장은 시험 범위(13_2 PDF 33쪽까지) 밖 3문제를 빼서 17문제다.
 
 - 전부 **단일 정답** 객관식이고 보기는 5개(일부 6개)다. 난이도는 중.
 - 장 안에서는 슬라이드 절 순서대로 배치했다. 문제 제목에 절 번호와 유형이 있다.
@@ -120,6 +120,3 @@ Holly Moore, *MATLAB for Engineers* 6th ed. 강의 슬라이드 Chapter 9~13에�
 | [13-15](ch13/problems.md) | 13.6 | 오류가 나는 줄·원인 고르기 | ODE 함수는 `(t,y)` 두 입력, 식에 y가 없어도 |
 | [13-16](ch13/problems.md) | 13.6 | 틀린 설명 고르기 | 초기 조건 = tspan 시작 시각, 출력 없으면 그래프, solver 표 |
 | [13-17](ch13/problems.md) | 13.6.1 | 오류가 나는 줄·원인 고르기 | 연립 ODE 함수의 출력은 열벡터 |
-| [13-18](ch13/problems.md) | 13.6.3 | 빈칸에 들어갈 코드 고르기 | 2계 ODE → 1계 연립, 최고계 도함수에 대해 풀기 |
-| [13-19](ch13/problems.md) | 13.6.4 | 빈칸에 들어갈 코드 고르기 | 경계 조건 residual 함수, `y_initial(1)` |
-| [13-20](ch13/problems.md) | 13.6.4–13.6.5 | 옳은 설명 고르기 | `bvpinit` structure, `bvp4c` 입력·결과, `pdepe` |
