@@ -1,6 +1,6 @@
-# 기말 대비 객관식 80문제 (final)
+# 기말 대비 객관식 97문제 (final)
 
-Holly Moore, *MATLAB for Engineers* 6th ed. 강의 슬라이드 Chapter 9~12에서 장마다 20문제씩 만든 객관식 문제집이다.
+Holly Moore, *MATLAB for Engineers* 6th ed. 강의 슬라이드 Chapter 9~13에서 장마다 20문제씩 만든 객관식 문제집이다. 13장은 시험 범위(13_2 PDF 33쪽까지) 밖 3문제를 빼서 17문제다.
 
 - 전부 **단일 정답** 객관식이고 보기는 5개(일부 6개)다. 난이도는 중.
 - 장 안에서는 슬라이드 절 순서대로 배치했다. 문제 제목에 절 번호와 유형이 있다.
@@ -15,6 +15,7 @@ Holly Moore, *MATLAB for Engineers* 6th ed. 강의 슬라이드 Chapter 9~12에�
 | 10 | Matrix Algebra | [ch10/problems.md](ch10/problems.md) | [ch10/solutions.md](ch10/solutions.md) |
 | 11 | Other Kinds of Arrays | [ch11/problems.md](ch11/problems.md) | [ch11/solutions.md](ch11/solutions.md) |
 | 12 | Symbolic Mathematics | [ch12/problems.md](ch12/problems.md) | [ch12/solutions.md](ch12/solutions.md) |
+| 13 | Numerical Techniques | [ch13/problems.md](ch13/problems.md) | [ch13/solutions.md](ch13/solutions.md) |
 
 ## 전체 색인
 
@@ -102,3 +103,20 @@ Holly Moore, *MATLAB for Engineers* 6th ed. 강의 슬라이드 Chapter 9~12에�
 | [12-18](ch12/problems.md) | 12.6.1 | 빈칸에 들어갈 코드 고르기 | `dsolve` 경계 조건(이름 붙인 조건) |
 | [12-19](ch12/problems.md) | 12.6.2 | 틀린 설명 고르기 | 2차 ODE, `Dx = diff(x)`, 초기값·경계값, 못 푸는 ODE |
 | [12-20](ch12/problems.md) | 12.7 | 옳은 설명 고르기 | `matlabFunction`, symfun 결과 sym vs handle 결과 double |
+| [13-01](ch13/problems.md) | 13.1.1 | 출력 고르기 | `interp1` 기본 linear, 셋째 입력에 벡터 |
+| [13-02](ch13/problems.md) | 13.1.2 | 옳은 설명 고르기 | `"spline"`은 넷째 입력, 3차 다항식·최소 4점, 끝 글자 숫자 1 |
+| [13-03](ch13/problems.md) | 13.1.3 | 출력 고르기 | `'linear','extrap'` 외삽은 마지막 선분 연장 |
+| [13-04](ch13/problems.md) | 13.1.4 | 출력 고르기 | `interp1` 두 번으로 이중 선형 보간 |
+| [13-05](ch13/problems.md) | 13.2.1 | 출력 고르기 | residual 제곱합, 최소인 모델이 best fit |
+| [13-06](ch13/problems.md) | 13.2.2 | 빈칸에 들어갈 코드 고르기 | 원점 통과 회귀는 열벡터 좌나눗셈 `x'\y'` |
+| [13-07](ch13/problems.md) | 13.2.3 | 출력 고르기 | `polyfit(x,y,2)` 계수는 높은 차수부터 3개 |
+| [13-08](ch13/problems.md) | 13.2.4 | 같은 결과를 내는 코드 고르기 | `polyval(a,x)`와 계수 순서, `.^` |
+| [13-09](ch13/problems.md) | 13.3 | 옳은 설명 고르기 | figure의 Tools → Basic Fitting, Curve Fitting Toolbox |
+| [13-10](ch13/problems.md) | 13.4 | 출력 고르기 | `diff`는 원소 하나 적고 구간 사이의 기울기 |
+| [13-11](ch13/problems.md) | 13.4.2 | 출력 고르기 | `gradient`: 첫 점 forward, 끝 점 backward, 나머지 central |
+| [13-12](ch13/problems.md) | 13.4.2 | 빈칸에 들어갈 코드 고르기 | backward는 같은 값을 마지막 점에 배정 `[NaN, d]` |
+| [13-13](ch13/problems.md) | 13.5 | 출력 고르기 | `trapz(x,y)` 사다리꼴 넓이 합 |
+| [13-14](ch13/problems.md) | 13.5 | 빈칸에 들어갈 코드 고르기 | `integral(handle, 하한, 상한)` |
+| [13-15](ch13/problems.md) | 13.6 | 오류가 나는 줄·원인 고르기 | ODE 함수는 `(t,y)` 두 입력, 식에 y가 없어도 |
+| [13-16](ch13/problems.md) | 13.6 | 틀린 설명 고르기 | 초기 조건 = tspan 시작 시각, 출력 없으면 그래프, solver 표 |
+| [13-17](ch13/problems.md) | 13.6.1 | 오류가 나는 줄·원인 고르기 | 연립 ODE 함수의 출력은 열벡터 |
